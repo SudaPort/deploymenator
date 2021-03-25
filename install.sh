@@ -10,18 +10,18 @@ DEFAULT_SMTP_HOST="smtp.gmail.com"
 DEFAULT_SMTP_PORT=465
 DEFAULT_SMTP_SECURITY="ssl"
 DEFAULT_SMTP_USERNAME="openbankit.notifications.test@gmail.com"
-DEFAULT_SMTP_PASSWORD="k1Yu^(>=]2)C[](+nH7o"
+DEFAULT_SMTP_PASSWORD="k1Yu^(>=]2)C[](+nH7o" 
 
-DOCKER_RIAK_REPO="github.com/SudaPort/docker-riak.git"
-DOCKER_NODE_REPO="github.com/SudaPort/docker-node.git"
-NGINX_PROXY_REPO="github.com/SudaPort/nginx-proxy.git"
+DOCKER_RIAK_REPO="SudaPort:sudaport135792468@github.com/SudaPort/docker-riak.git"
+DOCKER_NODE_REPO="SudaPort:sudaport135792468@github.com/SudaPort/docker-node.git"
+NGINX_PROXY_REPO="SudaPort:sudaport135792468@github.com/SudaPort/nginx-proxy.git"
 MICRO_REPOS=(
-    "github.com/SudaPort/abs.git"
-    "github.com/SudaPort/api.git"
-    "github.com/SudaPort/cards-bot.git"
-    "github.com/SudaPort/merchant-bot.git"
-    "github.com/SudaPort/exchange.git"
-    "github.com/SudaPort/frontend.git"
+    "SudaPort:sudaport135792468@github.com/SudaPort/abs.git"
+    "SudaPort:sudaport135792468@github.com/SudaPort/api.git"
+    "SudaPort:sudaport135792468@github.com/SudaPort/cards-bot.git"
+    "SudaPort:sudaport135792468@github.com/SudaPort/merchant-bot.git"
+    "SudaPort:sudaport135792468@github.com/SudaPort/exchange.git"
+    "SudaPort:sudaport135792468@github.com/SudaPort/frontend.git"
 )
 
 PROTOCOL_HOST_REGEX='(https?:\/\/(www\.)?[-a-zA-Z0-9]{2,256}\.[a-z]{2,6})|((https?:\/\/)?([0-9]{1,3}\.){3}([0-9]{1,3}))(\:?[0-9]{1,5})?(\/)?'
