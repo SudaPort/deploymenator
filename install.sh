@@ -27,7 +27,7 @@ MICRO_REPOS=(
 PROTOCOL_HOST_REGEX='(https?:\/\/(www\.)?[-a-zA-Z0-9]{2,256}\.[a-z]{2,6})|((https?:\/\/)?([0-9]{1,3}\.){3}([0-9]{1,3}))(\:?[0-9]{1,5})?(\/)?'
 
 # $1 - repository address (for instance: https://github.com/SudaPort/deploymenator)
-# $2 - branch (or tag) to be cloned (mirror)
+# $2 - branch (or tag) to be cloned ()
 function download_repo {
     dir=$(basename "$1" ".git")
     dir=${DEPLOYMENATOR_DIR}/../${dir}
@@ -132,7 +132,7 @@ service docker restart
 
 # Installing docker-riak ===========================================================================
 echo "Installing docker-riak =======================================================================" 
-GIT_BRANCH='mirror'
+GIT_BRANCH=''
 
 dir=$(download_repo $DOCKER_RIAK_REPO $GIT_BRANCH)
 
@@ -151,7 +151,7 @@ cd "$DEPLOYMENATOR_DIR"
 
 # Installing docker-node ============================================================================
 echo "Installing docker-node =======================================================================" 
-GIT_BRANCH='mirror'
+GIT_BRANCH=''
 
 dir=$(download_repo $DOCKER_NODE_REPO $GIT_BRANCH)
 cd "$dir"
@@ -225,7 +225,7 @@ cd "$DEPLOYMENATOR_DIR"
 
 # Installing nginx-proxy ============================================================================
 echo "Installing nginx-proxy ======================================================================="
-GIT_BRANCH='mirror'
+GIT_BRANCH=''
 
 dir=$(download_repo $NGINX_PROXY_REPO $GIT_BRANCH)
 
@@ -247,7 +247,7 @@ cd "$DEPLOYMENATOR_DIR"
 
 # Installing microservices ==========================================================================
 echo "Installing microservices ====================================================================="
-GIT_BRANCH="mirror"
+GIT_BRANCH=""
 
 rm -f ./clear.env
 echo "MASTER_KEY=${MASTER_PUBLIC_KEY}" >> ./clear.env
