@@ -100,7 +100,7 @@ apt-get purge docker-ce docker-ce-cli containerd.io
 rm -rf /var/lib/docker
 rm -rf /var/lib/containerd
 echo "Installing new docker ============================================================================"
-apt install dirmngr --install-recommends
+apt -y install dirmngr --install-recommends
 apt -y install git curl make apt-transport-https ca-certificates gnupg lsb-release
 curl -fsSL https://get.docker.com -o get-docker.sh
 sh get-docker.sh
