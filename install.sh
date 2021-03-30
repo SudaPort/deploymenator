@@ -1,5 +1,8 @@
 #!/bin/bash
-
+#-------------------------------------------------------------------------------------------------------------
+# Copyright (c) SudaPort Electronic Services Co. Ltd. *  All rights reserved.
+# To Get your Licensed contact us.  https://sudaport.com for license and sales information.
+#-------------------------------------------------------------------------------------------------------------
 DEPLOYMENATOR_DIR=${PWD}
 SEEDS_FILE="seeds.txt"
 PROJECT_NAME="Gurosh"
