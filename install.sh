@@ -131,20 +131,20 @@ service docker restart
 # ===================================================================================================
 
 # Installing docker-riak ===========================================================================
-echo "Installing docker-riak =======================================================================" 
-GIT_BRANCH='main'
+# echo "Installing docker-riak =======================================================================" 
+# GIT_BRANCH='main'
 
-dir=$(download_repo $DOCKER_RIAK_REPO $GIT_BRANCH)
+# dir=$(download_repo $DOCKER_RIAK_REPO $GIT_BRANCH)
 
-cd "$dir"
-rm -f ./.env
-echo "RIAK_HOST=$HOST_IP" >> ./.env
-echo "DOMAIN=$HOST_IP" >> ./.env
-echo "HOST=$HOST_IP" >> ./.env
+# cd "$dir"
+# rm -f ./.env
+# echo "RIAK_HOST=$HOST_IP" >> ./.env
+# echo "DOMAIN=$HOST_IP" >> ./.env
+# echo "HOST=$HOST_IP" >> ./.env
 
-make build
-sleep 3
-make status
+# make build
+# sleep 3
+# make status
 # ===================================================================================================
 
 cd "$DEPLOYMENATOR_DIR"
