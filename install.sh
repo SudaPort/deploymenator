@@ -133,20 +133,20 @@ service docker restart
 # ===================================================================================================
 
 # Installing docker-riak ===========================================================================
-# echo "Installing docker-riak =======================================================================" 
-# GIT_BRANCH='main'
+echo "Installing docker-riak =======================================================================" 
+GIT_BRANCH='main'
 
-# dir=$(download_repo $DOCKER_RIAK_REPO $GIT_BRANCH)
+dir=$(download_repo $DOCKER_RIAK_REPO $GIT_BRANCH)
 
-# cd "$dir"
-# rm -f ./.env
-# echo "RIAK_HOST=$HOST_IP" >> ./.env
-# echo "DOMAIN=$HOST_IP" >> ./.env
-# echo "HOST=$HOST_IP" >> ./.env
+cd "$dir"
+rm -f ./.env
+echo "RIAK_HOST=$HOST_IP" >> ./.env
+echo "DOMAIN=$HOST_IP" >> ./.env
+echo "HOST=$HOST_IP" >> ./.env
 
-# make build
-# sleep 3
-# make status
+make build
+sleep 3
+make status
 # ===================================================================================================
 
 cd "$DEPLOYMENATOR_DIR"
@@ -167,130 +167,130 @@ sleep 3
 make build
 sleep 3
 
-# # generating seed for master and fee agent accounts
-# echo "Generating seeds ============================================================================="
-# GENSEED="$(docker run --rm crypto/core src/stellar-core --genseed)"
-# MASTER_SEED=${GENSEED:13:56}
-# MASTER_PUBLIC_KEY=${GENSEED:82:56}
+# generating seed for master and fee agent accounts
+echo "Generating seeds ============================================================================="
+GENSEED="$(docker run --rm crypto/core src/stellar-core --genseed)"
+MASTER_SEED=${GENSEED:13:56}
+MASTER_PUBLIC_KEY=${GENSEED:82:56}
 
-# GENSEED="$(docker run --rm crypto/core src/stellar-core --genseed)"
-# COMISSION_SEED=${GENSEED:13:56}
-# COMISSION_PUBLIC_KEY=${GENSEED:82:56}
+GENSEED="$(docker run --rm crypto/core src/stellar-core --genseed)"
+COMISSION_SEED=${GENSEED:13:56}
+COMISSION_PUBLIC_KEY=${GENSEED:82:56}
 
-# rm -f ${DEPLOYMENATOR_DIR}/${SEEDS_FILE}
-# echo "MASTER_SEED=${MASTER_SEED}" >> ${DEPLOYMENATOR_DIR}/${SEEDS_FILE}
-# echo "MASTER_PUBLIC_KEY=${MASTER_PUBLIC_KEY}" >> ${DEPLOYMENATOR_DIR}/${SEEDS_FILE}
-# echo "" >> ${DEPLOYMENATOR_DIR}/${SEEDS_FILE}
-# echo "FEE_AGENT_SEED=${COMISSION_SEED}" >> ${DEPLOYMENATOR_DIR}/${SEEDS_FILE}
-# echo "FEE_AGENT_PUBLIC_KEY=${COMISSION_PUBLIC_KEY}" >> ${DEPLOYMENATOR_DIR}/${SEEDS_FILE}
+rm -f ${DEPLOYMENATOR_DIR}/${SEEDS_FILE}
+echo "MASTER_SEED=${MASTER_SEED}" >> ${DEPLOYMENATOR_DIR}/${SEEDS_FILE}
+echo "MASTER_PUBLIC_KEY=${MASTER_PUBLIC_KEY}" >> ${DEPLOYMENATOR_DIR}/${SEEDS_FILE}
+echo "" >> ${DEPLOYMENATOR_DIR}/${SEEDS_FILE}
+echo "FEE_AGENT_SEED=${COMISSION_SEED}" >> ${DEPLOYMENATOR_DIR}/${SEEDS_FILE}
+echo "FEE_AGENT_PUBLIC_KEY=${COMISSION_PUBLIC_KEY}" >> ${DEPLOYMENATOR_DIR}/${SEEDS_FILE}
 
-# echo $'\n'
-# echo "Master's and Fee Agent's credentials were written to ${DEPLOYMENATOR_DIR}/${SEEDS_FILE}"
-# echo $'\n'
-# sleep 3
+echo $'\n'
+echo "Master's and Fee Agent's credentials were written to ${DEPLOYMENATOR_DIR}/${SEEDS_FILE}"
+echo $'\n'
+sleep 3
 
-# # creating validator
-# echo "Creating validator ==========================================================================="
-# GENSEED="$(docker run --rm crypto/core src/stellar-core --genseed)"
-# NODE_SEED=${GENSEED:13:56}
-# NODE_PUBLIC_KEY=${GENSEED:82:56}
+# creating validator
+echo "Creating validator ==========================================================================="
+GENSEED="$(docker run --rm crypto/core src/stellar-core --genseed)"
+NODE_SEED=${GENSEED:13:56}
+NODE_PUBLIC_KEY=${GENSEED:82:56}
 
-# IS_VALIDATOR='true'
-# RIAK_PROTOCOL_HOST_PORT="http://${HOST_IP}:${RIAK_PORT}" 
+IS_VALIDATOR='true'
+RIAK_PROTOCOL_HOST_PORT="http://${HOST_IP}:${RIAK_PORT}" 
 
-# echo "Using Master Public Key: ${MASTER_PUBLIC_KEY}"
-# echo "Using Fee Agent Public Key: ${COMISSION_PUBLIC_KEY}"
-# echo "Using Riak host: ${RIAK_PROTOCOL_HOST_PORT}"
-# sleep 3
+echo "Using Master Public Key: ${MASTER_PUBLIC_KEY}"
+echo "Using Fee Agent Public Key: ${COMISSION_PUBLIC_KEY}"
+echo "Using Riak host: ${RIAK_PROTOCOL_HOST_PORT}"
+sleep 3
 
-# rm -f ./.core-cfg
+rm -f ./.core-cfg
 
-# echo "RIAK_HOST=${RIAK_PROTOCOL_HOST_PORT}" >> ./.core-cfg
-# echo "NODE_SEED=$NODE_SEED" >> ./.core-cfg
-# echo "NODE_IS_VALIDATOR=$IS_VALIDATOR" >> ./.core-cfg
-# echo "BANK_MASTER_KEY=$MASTER_PUBLIC_KEY" >> ./.core-cfg
-# echo "BANK_COMMISSION_KEY=$COMISSION_PUBLIC_KEY" >> ./.core-cfg
+echo "RIAK_HOST=${RIAK_PROTOCOL_HOST_PORT}" >> ./.core-cfg
+echo "NODE_SEED=$NODE_SEED" >> ./.core-cfg
+echo "NODE_IS_VALIDATOR=$IS_VALIDATOR" >> ./.core-cfg
+echo "BANK_MASTER_KEY=$MASTER_PUBLIC_KEY" >> ./.core-cfg
+echo "BANK_COMMISSION_KEY=$COMISSION_PUBLIC_KEY" >> ./.core-cfg
 
-# echo $'\n'
-# echo "******************************************************************************"
-# echo "Validator Node Public Key: $NODE_PUBLIC_KEY"
-# echo "******************************************************************************"
+echo $'\n'
+echo "******************************************************************************"
+echo "Validator Node Public Key: $NODE_PUBLIC_KEY"
+echo "******************************************************************************"
 
-# make build
+make build
 
-# sleep 1
+sleep 1
 
-# make start
-# # ===================================================================================================
+make start
+# ===================================================================================================
 
-# cd "$DEPLOYMENATOR_DIR"
+cd "$DEPLOYMENATOR_DIR"
 
-# # Installing nginx-proxy ============================================================================
-# echo "Installing nginx-proxy ======================================================================="
-# GIT_BRANCH='main'
+# Installing nginx-proxy ============================================================================
+echo "Installing nginx-proxy ======================================================================="
+GIT_BRANCH='main'
 
-# dir=$(download_repo $NGINX_PROXY_REPO $GIT_BRANCH)
+dir=$(download_repo $NGINX_PROXY_REPO $GIT_BRANCH)
 
-# cd "$dir"
-# rm -f ./.env
-# echo "DOMAIN=${DOMAIN}" >> ./.env
-# echo "HORIZON_NP_HOST=${HOST_IP}" >> ./.env
-# echo "RIAK_NP_HOST=${HOST_IP}" >> ./.env
-# echo "SERVICES_NP_HOST=${HOST_IP}" >> ./.env
+cd "$dir"
+rm -f ./.env
+echo "DOMAIN=${DOMAIN}" >> ./.env
+echo "HORIZON_NP_HOST=${HOST_IP}" >> ./.env
+echo "RIAK_NP_HOST=${HOST_IP}" >> ./.env
+echo "SERVICES_NP_HOST=${HOST_IP}" >> ./.env
 
-# make build
-# sleep 1
-# make start
-# sleep 3
-# make state
-# # ===================================================================================================
+make build
+sleep 1
+make start
+sleep 3
+make state
+# ===================================================================================================
 
-# cd "$DEPLOYMENATOR_DIR"
+cd "$DEPLOYMENATOR_DIR"
 
-# # Installing microservices ==========================================================================
-# echo "Installing microservices ====================================================================="
-# GIT_BRANCH="main"
+# Installing microservices ==========================================================================
+echo "Installing microservices ====================================================================="
+GIT_BRANCH="main"
 
-# rm -f ./clear.env
-# echo "MASTER_KEY=${MASTER_PUBLIC_KEY}" >> ./clear.env
-# echo "HORIZON_HOST=http://blockchain.${DOMAIN}" >> ./clear.env
-# echo "EMISSION_HOST=http://emission.${DOMAIN}" >> ./clear.env
-# echo "EMISSION_PATH=issue" >> ./clear.env
-# echo "RIAK_HOST=riak.${DOMAIN}" >> ./clear.env
-# echo "RIAK_PORT=80" >> ./clear.env
-# echo "API_HOST=http://api.${DOMAIN}" >> ./clear.env
-# echo "INFO_HOST=http://info.${DOMAIN}" >> ./clear.env
-# echo "EXCHANGE_HOST=http://exchange.${DOMAIN}" >> ./clear.env
-# echo "HELP_URL=http://${DOMAIN}/docs/api-reference" >> ./clear.env
-# echo "WELCOME_HOST=http://welcome.${DOMAIN}" >> ./clear.env
-# echo "MERCHANT_HOST=http://merchant.${DOMAIN}" >> ./clear.env
-# echo "STELLAR_NETWORK=${DEFAULT_NETWORK_PASSPHRASE}" >> ./clear.env
-# echo "DOMAIN=${DOMAIN}" >> ./clear.env
-# echo "HOST=${HOST_IP}" >> ./clear.env
-# echo "PROJECT_NAME=${PROJECT_NAME}" >> ./clear.env
+rm -f ./clear.env
+echo "MASTER_KEY=${MASTER_PUBLIC_KEY}" >> ./clear.env
+echo "HORIZON_HOST=http://blockchain.${DOMAIN}" >> ./clear.env
+echo "EMISSION_HOST=http://emission.${DOMAIN}" >> ./clear.env
+echo "EMISSION_PATH=issue" >> ./clear.env
+echo "RIAK_HOST=riak.${DOMAIN}" >> ./clear.env
+echo "RIAK_PORT=80" >> ./clear.env
+echo "API_HOST=http://api.${DOMAIN}" >> ./clear.env
+echo "INFO_HOST=http://info.${DOMAIN}" >> ./clear.env
+echo "EXCHANGE_HOST=http://exchange.${DOMAIN}" >> ./clear.env
+echo "HELP_URL=http://${DOMAIN}/docs/api-reference" >> ./clear.env
+echo "WELCOME_HOST=http://welcome.${DOMAIN}" >> ./clear.env
+echo "MERCHANT_HOST=http://merchant.${DOMAIN}" >> ./clear.env
+echo "STELLAR_NETWORK=${DEFAULT_NETWORK_PASSPHRASE}" >> ./clear.env
+echo "DOMAIN=${DOMAIN}" >> ./clear.env
+echo "HOST=${HOST_IP}" >> ./clear.env
+echo "PROJECT_NAME=${PROJECT_NAME}" >> ./clear.env
 
-# cp -f ./clear.env default.env
+cp -f ./clear.env default.env
 
-# echo "SMTP_HOST=$smtp_host" >> ./default.env;
-# echo "SMTP_PORT=$smtp_port" >> ./default.env;
-# echo "SMTP_SECURITY=$smtp_security" >> ./default.env;
-# echo "SMTP_USER=$smtp_user" >> ./default.env;
-# echo "SMTP_PASS=$smtp_pass" >> ./default.env;
+echo "SMTP_HOST=$smtp_host" >> ./default.env;
+echo "SMTP_PORT=$smtp_port" >> ./default.env;
+echo "SMTP_SECURITY=$smtp_security" >> ./default.env;
+echo "SMTP_USER=$smtp_user" >> ./default.env;
+echo "SMTP_PASS=$smtp_pass" >> ./default.env;
 
-# for i in "${MICRO_REPOS[@]}"
-# do
-#    dir=$(basename "$i" ".git")
-#    dir=${DEPLOYMENATOR_DIR}/../${dir}
+for i in "${MICRO_REPOS[@]}"
+do
+   dir=$(basename "$i" ".git")
+   dir=${DEPLOYMENATOR_DIR}/../${dir}
 
-#    if [[ -d "$dir" ]]; then
-#        cd $dir && makeconfig $dir && make build && cd ${DEPLOYMENATOR_DIR}/..
-#    else
-#        dir=$(download_repo $i $GIT_BRANCH)
-#        cd $dir && makeconfig $dir && make build && cd ${DEPLOYMENATOR_DIR}/..
-#    fi
-# done
+   if [[ -d "$dir" ]]; then
+       cd $dir && makeconfig $dir && make build && cd ${DEPLOYMENATOR_DIR}/..
+   else
+       dir=$(download_repo $i $GIT_BRANCH)
+       cd $dir && makeconfig $dir && make build && cd ${DEPLOYMENATOR_DIR}/..
+   fi
+done
 
-# echo "make indexes on api..."
-# cd ${DEPLOYMENATOR_DIR}/../api && sleep 1 && make indexes
-# echo "Complete"
-# # ===================================================================================================
+echo "make indexes on api..."
+cd ${DEPLOYMENATOR_DIR}/../api && sleep 1 && make indexes
+echo "Complete"
+# ===================================================================================================
