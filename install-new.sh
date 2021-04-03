@@ -180,6 +180,7 @@ GIT_BRANCH='main'
 dir=$(download_repo $NGINX_PROXY_REPO $GIT_BRANCH)
 
 cd "$dir"
+chmod u+x+r+w ./docker/nginx/entrypoint.sh
 rm -f ./.env
 echo "DOMAIN=${DOMAIN}" >> ./.env
 echo "HORIZON_NP_HOST=${HOST_IP}" >> ./.env
