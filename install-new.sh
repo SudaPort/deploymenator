@@ -15,7 +15,7 @@ DEFAULT_SMTP_USERNAME="openbankit.notifications.test@gmail.com"
 DEFAULT_SMTP_PASSWORD="k1Yu^(>=]2)C[](+nH7o" 
 
 DOCKER_RIAK_REPO="github.com/SudaPort/docker-riak.git"
-DOCKER_NODE_REPO="github.com/SudaPort/docker-node.git"
+DOCKER_NODE_REPO="github.com/SudaPort/gurosh-node.git"
 NGINX_PROXY_REPO="github.com/SudaPort/nginx-proxy.git"
 MICRO_REPOS=(
     "github.com/SudaPort/abs.git"
@@ -164,63 +164,11 @@ sed -i -e "s/NETWORK_PASSPHRASE=.*$/NETWORK_PASSPHRASE=${DEFAULT_NETWORK_PASSPHR
 echo "Building ====================================================================================="
 echo "Starting to build Node, this may take nearly 40 minutes"
 sleep 3
-make build
+chmod u+x+r+w ./setup.sh
+./setup.sh
 sleep 3
-
-# generating seed for master and fee agent accounts
-echo "Generating seeds ============================================================================="
-GENSEED="$(docker run --rm stellar/stellar-core src/stellar-core --genseed)"
-MASTER_SEED=${GENSEED:13:56}
-MASTER_PUBLIC_KEY=${GENSEED:82:56}
-
-GENSEED="$(docker run --rm stellar/stellar-core src/stellar-core --genseed)"
-COMISSION_SEED=${GENSEED:13:56}
-COMISSION_PUBLIC_KEY=${GENSEED:82:56}
-
-rm -f ${DEPLOYMENATOR_DIR}/${SEEDS_FILE}
-echo "MASTER_SEED=${MASTER_SEED}" >> ${DEPLOYMENATOR_DIR}/${SEEDS_FILE}
-echo "MASTER_PUBLIC_KEY=${MASTER_PUBLIC_KEY}" >> ${DEPLOYMENATOR_DIR}/${SEEDS_FILE}
-echo "" >> ${DEPLOYMENATOR_DIR}/${SEEDS_FILE}
-echo "FEE_AGENT_SEED=${COMISSION_SEED}" >> ${DEPLOYMENATOR_DIR}/${SEEDS_FILE}
-echo "FEE_AGENT_PUBLIC_KEY=${COMISSION_PUBLIC_KEY}" >> ${DEPLOYMENATOR_DIR}/${SEEDS_FILE}
-
-echo $'\n'
-echo "Master's and Fee Agent's credentials were written to ${DEPLOYMENATOR_DIR}/${SEEDS_FILE}"
-echo $'\n'
-sleep 3
-
-# creating validator
-echo "Creating validator ==========================================================================="
-GENSEED="$(docker run --rm stellar/stellar-core src/stellar-core --genseed)"
-NODE_SEED=${GENSEED:13:56}
-NODE_PUBLIC_KEY=${GENSEED:82:56}
-
-IS_VALIDATOR='true'
-RIAK_PROTOCOL_HOST_PORT="http://${HOST_IP}:${RIAK_PORT}" 
-
-echo "Using Master Public Key: ${MASTER_PUBLIC_KEY}"
-echo "Using Fee Agent Public Key: ${COMISSION_PUBLIC_KEY}"
-echo "Using Riak host: ${RIAK_PROTOCOL_HOST_PORT}"
-sleep 3
-
 rm -f ./.core-cfg
-
-echo "RIAK_HOST=${RIAK_PROTOCOL_HOST_PORT}" >> ./.core-cfg
-echo "NODE_SEED=$NODE_SEED" >> ./.core-cfg
-echo "NODE_IS_VALIDATOR=$IS_VALIDATOR" >> ./.core-cfg
-echo "BANK_MASTER_KEY=$MASTER_PUBLIC_KEY" >> ./.core-cfg
-echo "BANK_COMMISSION_KEY=$COMISSION_PUBLIC_KEY" >> ./.core-cfg
-
-echo $'\n'
-echo "******************************************************************************"
-echo "Validator Node Public Key: $NODE_PUBLIC_KEY"
-echo "******************************************************************************"
-
-make build
-
 sleep 1
-
-make start
 # ===================================================================================================
 
 cd "$DEPLOYMENATOR_DIR"
@@ -253,7 +201,7 @@ GIT_BRANCH="main"
 
 rm -f ./clear.env
 echo "MASTER_KEY=${MASTER_PUBLIC_KEY}" >> ./clear.env
-echo "HORIZON_HOST=http://blockchain.${DOMAIN}" >> ./clear.env
+echo "HORIZON_HOST=http://sehad.${DOMAIN}" >> ./clear.env
 echo "EMISSION_HOST=http://emission.${DOMAIN}" >> ./clear.env
 echo "EMISSION_PATH=issue" >> ./clear.env
 echo "RIAK_HOST=riak.${DOMAIN}" >> ./clear.env
