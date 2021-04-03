@@ -151,8 +151,8 @@ make status
 
 cd "$DEPLOYMENATOR_DIR"
 
-# Installing docker-node ============================================================================
-echo "Installing docker-node =======================================================================" 
+# Installing Gurosh-core docker ======================================================================
+echo "Installing Gurosh-core docker =======================================================================" 
 GIT_BRANCH='main'
 
 dir=$(download_repo $DOCKER_NODE_REPO $GIT_BRANCH)
