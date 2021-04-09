@@ -202,7 +202,7 @@ GIT_BRANCH="main"
 
 rm -f ./clear.env
 echo "MASTER_KEY=${MASTER_PUBLIC_KEY}" >> ./clear.env
-echo "HORIZON_HOST=http://sehad.${DOMAIN}" >> ./clear.env
+echo "HORIZON_HOST=http://sehab.${DOMAIN}" >> ./clear.env
 echo "EMISSION_HOST=http://emission.${DOMAIN}" >> ./clear.env
 echo "EMISSION_PATH=issue" >> ./clear.env
 echo "RIAK_HOST=riak.${DOMAIN}" >> ./clear.env
