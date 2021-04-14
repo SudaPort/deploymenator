@@ -1,7 +1,7 @@
 #!/bin/bash
 chmod u+r+w+x ./logo.sh
 ./logo.sh
-
+cd ..
 DEPLOYMENATOR_DIR=${PWD}
 SEEDS_FILE="seeds.txt"
 PROJECT_NAME="Gurosh"
