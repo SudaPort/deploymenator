@@ -93,47 +93,46 @@ echo "SMTP username: ${smtp_user}"
 echo "--------------------------------------------------------------------------------------------"
 read -ra response -p "Press Enter to start the system deployment process… "
 
-# ===================================================================================================
 
-# Installing and starting docker ====================================================================
-echo "Removing old docker ============================================================================"
-apt update
-apt-get purge docker-ce docker-ce-cli containerd.io
-rm -rf /var/lib/docker
-rm -rf /var/lib/containerd
-echo "Installing new docker ============================================================================"
-apt -y install dirmngr --install-recommends
-apt -y install git curl make apt-transport-https ca-certificates gnupg lsb-release
-curl -fsSL https://get.docker.com -o get-docker.sh
-sh get-docker.sh
-usermod -aG docker "$SUDO_USER"
-echo "Starting docker ============================================================================"
-service docker start
-
-# Install docker-compose 
-curl -L "https://github.com/docker/compose/releases/download/1.28.5/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-chmod +x /usr/local/bin/docker-compose
-
-current_user=''
-if [ "$SUDO_USER" ];
-then
-    current_user="$SUDO_USER"
-elif [ $USER != "root" ];
-then
-    current_user="$USER"
+echo " =============================Checking for Docker=============================================="
+if [ -x "$(command -v docker)" ]; then
+    echo "******Docker is installed*******"
+    service docker start
 else
+    echo "*******Installing docker********"
+    apt -y install dirmngr --install-recommends
+    apt -y install git curl make apt-transport-https ca-certificates gnupg lsb-release
+    curl -fsSL https://get.docker.com -o get-docker.sh
+    sh get-docker.sh
+    usermod -aG docker "$SUDO_USER"
+    service docker start
+fi
+
+echo " =============================Checking for Docker Compose==================================="
+if [ -x "$(command -v docker-compose)" ]; then
+    echo "******Docker Compose is installed*******"
+else
+  echo "******Installing Docker Compose*******"
+  curl -L "https://github.com/docker/compose/releases/download/1.28.5/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+  chmod +x /usr/local/bin/docker-compose
+  current_user=''
+  if [ "$SUDO_USER" ];
+  then
+    current_user="$SUDO_USER"
+  elif [ $USER != "root" ];
+  then
+    current_user="$USER"
+  else
     echo "Input your user name, please:"
     read current_user
-fi
+  fi
 
 # Giving non-root access (optional)
 groupadd docker
 gpasswd -a "$current_user" docker
 service docker restart
-# ===================================================================================================
 
-# Installing docker-riak ===========================================================================
-echo "Installing docker-riak =======================================================================" 
+echo "===============================Building docker-riak===============================================" 
 GIT_BRANCH='main'
 
 dir=$(download_repo $DOCKER_RIAK_REPO $GIT_BRANCH)
@@ -147,34 +146,28 @@ echo "HOST=$HOST_IP" >> ./.env
 make build
 sleep 3
 make status
-# ===================================================================================================
 
 cd "$DEPLOYMENATOR_DIR"
 
-# Installing Gurosh-core docker ======================================================================
-echo "Installing Gurosh-core docker =======================================================================" 
+
+echo "=================================Building Gurosh-core docker =========================================" 
 GIT_BRANCH='main'
 
 dir=$(download_repo $DOCKER_NODE_REPO $GIT_BRANCH)
 cd "$dir"
-
 sed -i -e "s/NETWORK_PASSPHRASE=.*$/NETWORK_PASSPHRASE=${DEFAULT_NETWORK_PASSPHRASE}/g" ./.env
 
 # building node
-echo "Building ====================================================================================="
-echo "Starting to build Node, this may take nearly 40 minutes"
 sleep 3
 chmod u+x+r+w ./setup.sh
 ./setup.sh
 sleep 3
 rm -f ./.core-cfg
 sleep 1
-# ===================================================================================================
 
 cd "$DEPLOYMENATOR_DIR"
 
-# Installing nginx-proxy ============================================================================
-echo "Installing nginx-proxy ======================================================================="
+echo "=========================================Building nginx-proxy ================================="
 GIT_BRANCH='main'
 
 dir=$(download_repo $NGINX_PROXY_REPO $GIT_BRANCH)
@@ -192,12 +185,11 @@ sleep 1
 make start
 sleep 3
 make state
-# ===================================================================================================
 
 cd "$DEPLOYMENATOR_DIR"
 
-# Installing microservices ==========================================================================
-echo "Installing microservices ====================================================================="
+
+echo " =====================================Building microservices======================================"
 GIT_BRANCH="main"
 
 rm -f ./clear.env
@@ -232,14 +224,13 @@ do
    dir=${DEPLOYMENATOR_DIR}/../${dir}
 
    if [[ -d "$dir" ]]; then
-       cd $dir && makeconfig $dir && make build && cd ${DEPLOYMENATOR_DIR}/..
+       cd $dir && echo "*******Installing $dir ********" && makeconfig $dir && make build && cd ${DEPLOYMENATOR_DIR}/..
    else
        dir=$(download_repo $i $GIT_BRANCH)
-       cd $dir && makeconfig $dir && make build && cd ${DEPLOYMENATOR_DIR}/..
+       cd $dir && echo "*******Installing $dir ********" && makeconfig $dir && make build && cd ${DEPLOYMENATOR_DIR}/..
    fi
 done
 
-echo "make indexes on api..."
+echo "**************make indexes on api...************"
 cd ${DEPLOYMENATOR_DIR}/../api && sleep 1 && make indexes
 echo "Complete"
-# ===================================================================================================
