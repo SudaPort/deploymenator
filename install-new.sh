@@ -125,8 +125,8 @@ else
   else
     echo "Input your user name, please:"
     read current_user
-  fi
-
+   fi
+fi
 # Giving non-root access (optional)
 groupadd docker
 gpasswd -a "$current_user" docker
@@ -233,4 +233,4 @@ done
 
 echo "**************make indexes on api...************"
 cd ${DEPLOYMENATOR_DIR}/../api && sleep 1 && make indexes
-echo "Complete"
+echo "*********Complete*******************Complete****************Complete***********************Complete****************"
