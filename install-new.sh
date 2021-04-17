@@ -65,7 +65,7 @@ do
     fi
 done
 
-echo "--------------------------------------------------------------------------------------------"
+echo "-------------------------------------------------------------------------------------------->>>"
 # domain for all services
 while true
 do
@@ -76,7 +76,7 @@ do
     fi
 done
 
-echo "--------------------------------------------------------------------------------------------"
+echo "-------------------------------------------------------------------------------------------->>>"
 # SMTP credentials
 smtp_host=$DEFAULT_SMTP_HOST
 smtp_port=$DEFAULT_SMTP_PORT
@@ -90,16 +90,16 @@ echo "SMTP port: ${smtp_port}"
 echo "SMTP security: ${smtp_security}"
 echo "SMTP username: ${smtp_user}"
 
-echo "--------------------------------------------------------------------------------------------"
+echo "-------------------------------------------------------------------------------------------->>>"
 read -ra response -p "Press Enter to start the system deployment process… "
 
 
-echo " =============================Checking for Docker=============================================="
+echo " =============================Checking for Docker==============================================>>>"
 if [ -x "$(command -v docker)" ]; then
-    echo "******Docker is installed*******"
+    echo "***************************Docker is installed********************************************>>>"
     service docker start
 else
-    echo "*******Installing docker********"
+    echo "*****************************Installing docker*******************************************>>>"
     apt -y install dirmngr --install-recommends
     apt -y install git curl make apt-transport-https ca-certificates gnupg lsb-release
     curl -fsSL https://get.docker.com -o get-docker.sh
@@ -108,11 +108,11 @@ else
     service docker start
 fi
 
-echo " =============================Checking for Docker Compose==================================="
+echo " =============================Checking for Docker Compose===================================>>>"
 if [ -x "$(command -v docker-compose)" ]; then
-    echo "******Docker Compose is installed*******"
+    echo "*********************************Docker Compose is installed*****************************>>>"
 else
-  echo "******Installing Docker Compose*******"
+  echo "*********************************Installing Docker Compose***********************************>>>"
   curl -L "https://github.com/docker/compose/releases/download/1.28.5/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
   chmod +x /usr/local/bin/docker-compose
   current_user=''
@@ -132,7 +132,7 @@ groupadd docker
 gpasswd -a "$current_user" docker
 service docker restart
 
-echo "===============================Building docker-riak===============================================" 
+echo "===============================Building docker-riak===============================================>>>" 
 GIT_BRANCH='main'
 
 dir=$(download_repo $DOCKER_RIAK_REPO $GIT_BRANCH)
@@ -150,7 +150,7 @@ make status
 cd "$DEPLOYMENATOR_DIR"
 
 
-echo "=================================Building Gurosh-core docker =========================================" 
+echo "=================================Building Gurosh-core docker =========================================>>>" 
 GIT_BRANCH='main'
 
 dir=$(download_repo $DOCKER_NODE_REPO $GIT_BRANCH)
@@ -167,7 +167,7 @@ sleep 1
 
 cd "$DEPLOYMENATOR_DIR"
 
-echo "=========================================Building nginx-proxy ================================="
+echo "=========================================Building nginx-proxy =================================>>>"
 GIT_BRANCH='main'
 
 dir=$(download_repo $NGINX_PROXY_REPO $GIT_BRANCH)
@@ -189,7 +189,7 @@ make state
 cd "$DEPLOYMENATOR_DIR"
 
 
-echo " =====================================Building microservices======================================"
+echo " =====================================Building microservices======================================>>>"
 GIT_BRANCH="main"
 
 rm -f ./clear.env
@@ -224,13 +224,16 @@ do
    dir=${DEPLOYMENATOR_DIR}/../${dir}
 
    if [[ -d "$dir" ]]; then
-       cd $dir && echo "*******Installing $dir ********" && makeconfig $dir && make build && cd ${DEPLOYMENATOR_DIR}/..
+       cd $dir && echo "*******************************Installing $dir ********************************>>>" && makeconfig $dir && make build && cd ${DEPLOYMENATOR_DIR}/..
    else
        dir=$(download_repo $i $GIT_BRANCH)
-       cd $dir && echo "*******Installing $dir ********" && makeconfig $dir && make build && cd ${DEPLOYMENATOR_DIR}/..
+       cd $dir && echo "********************************Installing $dir ********************************>>>" && makeconfig $dir && make build && cd ${DEPLOYMENATOR_DIR}/..
    fi
 done
 
-echo "**************make indexes on api...************"
+echo "***************************************************make indexes on api...*******************************>>>"
 cd ${DEPLOYMENATOR_DIR}/../api && sleep 1 && make indexes
-echo "*********Complete*******************Complete****************Complete***********************Complete****************"
+echo "*******************************************************************************************************************"
+echo "*                 Complete                 Complete                 Complete                 Complete             *"
+echo "*                 Complete                 Complete                 Complete                 Complete             *"
+echo "*******************************************************************************************************************"
