@@ -92,7 +92,7 @@ echo "SMTP username: ${smtp_user}"
 
 echo "--------------------------------------------------------------------------------------------"
 read -ra response -p "Press Enter to start the system deployment process… "
-
+apt-get install build-essential
 
 echo " =============================Checking for Docker=============================================="
 if [ -x "$(command -v docker)" ]; then
