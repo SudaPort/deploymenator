@@ -9,7 +9,7 @@ REPOS=(
     "github.com/SudaPort/frontend.git"
 )
 
-GIT_BRANCH='mirror'
+GIT_BRANCH='main'
 CUR_DIR=${PWD}
 
 function makeconfig {
