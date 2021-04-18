@@ -1,12 +1,12 @@
 #!/bin/bash
 
 REPOS=(
-    "github.com/openbankit/abs.git"
-    "github.com/openbankit/api.git"
-    "github.com/openbankit/cards-bot.git"
-    "github.com/openbankit/merchant-bot.git"
-    "github.com/openbankit/exchange.git"
-    "github.com/openbankit/frontend.git"
+    "github.com/SudaPort/abs.git"
+    "github.com/SudaPort/api.git"
+    "github.com/SudaPort/cards-bot.git"
+    "github.com/SudaPort/merchant-bot.git"
+    "github.com/SudaPort/exchange.git"
+    "github.com/SudaPort/frontend.git"
 )
 
 GIT_BRANCH='mirror'
@@ -22,7 +22,7 @@ rm -rf ./default.env
 cp -f ./clear.env default.env
 
 echo "" >> ./default.env
-echo "PROJECT_NAME=OpenbankIT" >> ./default.env
+echo "PROJECT_NAME=Gurosh" >> ./default.env
 read -p "Enter SMTP host:" smtp_host; echo "SMTP_HOST=$smtp_host" >> ./default.env;
 read -p "Enter SMTP port:" smtp_port; echo "SMTP_PORT=$smtp_port" >> ./default.env;
 read -p "Enter SMTP security:" smtp_security; echo "SMTP_SECURITY=$smtp_security" >> ./default.env;
