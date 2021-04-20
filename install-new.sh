@@ -14,7 +14,7 @@ DEFAULT_SMTP_USERNAME="openbankit.notifications.test@gmail.com"
 DEFAULT_SMTP_PASSWORD="k1Yu^(>=]2)C[](+nH7o" 
 
 DOCKER_RIAK_REPO="github.com/SudaPort/docker-riak.git"
-DOCKER_NODE_REPO="github.com/SudaPort/gurosh-node.git"
+DOCKER_NODE_REPO="github.com/SudaPort/docker-node.git"
 NGINX_PROXY_REPO="github.com/SudaPort/nginx-proxy.git"
 MICRO_REPOS=(
     "github.com/SudaPort/abs.git"
@@ -64,7 +64,7 @@ do
     fi
 done
 
-echo "--------------------------------------------------------------------------------------------"
+echo "-------------------------------------------------------------------------------------------------------------"
 # domain for all services
 while true
 do
@@ -75,7 +75,7 @@ do
     fi
 done
 
-echo "--------------------------------------------------------------------------------------------"
+echo "-------------------------------------------------------------------------------------------------------------"
 # SMTP credentials
 smtp_host=$DEFAULT_SMTP_HOST
 smtp_port=$DEFAULT_SMTP_PORT
@@ -89,16 +89,16 @@ echo "SMTP port: ${smtp_port}"
 echo "SMTP security: ${smtp_security}"
 echo "SMTP username: ${smtp_user}"
 
-echo "--------------------------------------------------------------------------------------------"
+echo "-------------------------------------------------------------------------------------------------------------"
 read -ra response -p "Press Enter to start the system deployment process… "
 apt-get install build-essential
 
-echo " =============================Checking for Docker=============================================="
+echo " =============================Checking for Docker============================================================="
 if [ -x "$(command -v docker)" ]; then
-    echo "***************************Docker is installed********************************************"
+    echo "***************************Docker is installed************************************************************"
     service docker start
 else
-    echo "*****************************Installing docker*******************************************"
+    echo "*****************************Installing docker***********************************************************"
     apt -y install dirmngr --install-recommends
     apt -y install git curl make apt-transport-https ca-certificates gnupg lsb-release
     curl -fsSL https://get.docker.com -o get-docker.sh
@@ -107,8 +107,8 @@ else
     service docker start
 fi
 
-echo " =============================Checking for Docker Compose==================================="
-  echo "*********************************Installing Docker Compose***********************************"
+echo " =============================Checking for Docker Compose======================================================="
+  echo "*********************************Installing Docker Compose****************************************************"
   curl -L "https://github.com/docker/compose/releases/download/1.28.5/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
   chmod +x /usr/local/bin/docker-compose
   current_user=''
@@ -127,7 +127,7 @@ groupadd docker
 gpasswd -a "$current_user" docker
 service docker restart
 
-echo "===============================Building docker-riak===============================================" 
+echo "===============================Building docker-riak=============================================================" 
 GIT_BRANCH='main'
 
 dir=$(download_repo $DOCKER_RIAK_REPO $GIT_BRANCH)
@@ -153,16 +153,51 @@ cd "$dir"
 sed -i -e "s/NETWORK_PASSPHRASE=.*$/NETWORK_PASSPHRASE=${DEFAULT_NETWORK_PASSPHRASE}/g" ./.env
 
 # building node
+echo "Starting to build Node, this may take nearly 40 minutes"
 sleep 3
-chmod u+x+r+w ./setup.sh
-./setup.sh
+make build
+sleep 3
+# generating seed for master and fee agent accounts
+echo "*********************************Generating seeds *********************************************************"
+GENSEED="$(docker run --rm crypto/core src/stellar-core --genseed)"
+MASTER_SEED=${GENSEED:13:56}
+MASTER_PUBLIC_KEY=${GENSEED:82:56}
+
+GENSEED="$(docker run --rm crypto/core src/stellar-core --genseed)"
+COMISSION_SEED=${GENSEED:13:56}
+COMISSION_PUBLIC_KEY=${GENSEED:82:56}
+
+rm -f ${DEPLOYMENATOR_DIR}/${SEEDS_FILE}
+echo "MASTER_SEED=${MASTER_SEED}" >> ${DEPLOYMENATOR_DIR}/${SEEDS_FILE}
+echo "MASTER_PUBLIC_KEY=${MASTER_PUBLIC_KEY}" >> ${DEPLOYMENATOR_DIR}/${SEEDS_FILE}
+echo "" >> ${DEPLOYMENATOR_DIR}/${SEEDS_FILE}
+echo "FEE_AGENT_SEED=${COMISSION_SEED}" >> ${DEPLOYMENATOR_DIR}/${SEEDS_FILE}
+echo "FEE_AGENT_PUBLIC_KEY=${COMISSION_PUBLIC_KEY}" >> ${DEPLOYMENATOR_DIR}/${SEEDS_FILE}
+
+echo $'\n'
+echo "Master's and Fee Agent's credentials were written to ${DEPLOYMENATOR_DIR}/${SEEDS_FILE}"
+echo $'\n'
+sleep 3
+
+# creating validator
+echo "*****************************************************Creating validator ****************************************"
+GENSEED="$(docker run --rm crypto/core src/stellar-core --genseed)"
+NODE_SEED=${GENSEED:13:56}
+NODE_PUBLIC_KEY=${GENSEED:82:56}
+
+IS_VALIDATOR='true'
+RIAK_PROTOCOL_HOST_PORT="http://${HOST_IP}:${RIAK_PORT}" 
+
+echo "Using Master Public Key: ${MASTER_PUBLIC_KEY}"
+echo "Using Fee Agent Public Key: ${COMISSION_PUBLIC_KEY}"
+echo "Using Riak host: ${RIAK_PROTOCOL_HOST_PORT}"
 sleep 3
 rm -f ./.core-cfg
 sleep 1
 
 cd "$DEPLOYMENATOR_DIR"
 
-echo "=========================================Building nginx-proxy ================================="
+echo "=========================================Building nginx-proxy ==================================================="
 GIT_BRANCH='main'
 
 dir=$(download_repo $NGINX_PROXY_REPO $GIT_BRANCH)
@@ -184,7 +219,7 @@ make state
 cd "$DEPLOYMENATOR_DIR"
 
 
-echo " =====================================Building microservices======================================"
+echo " =====================================Building microservices======================================================"
 GIT_BRANCH="main"
 
 rm -f ./clear.env
