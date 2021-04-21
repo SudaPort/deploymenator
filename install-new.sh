@@ -80,8 +80,7 @@ done
 
 echo "-------------------------------------------------------------------------------------------------------------"
 # SMTP credentials
-while true
-do
+
 read -ra response -p "${GREEN}Use default SMTP?: [Y/n]${NC} "
     if [[ -z $response || $response = [yY] ]]; then 
       smtp_host=$DEFAULT_SMTP_HOST
@@ -96,7 +95,6 @@ read -ra response -p "${GREEN}Use default SMTP?: [Y/n]${NC} "
       read -p "${GREEN}Enter SMTP username:${NC}" smtp_user;
       read -p "${GREEN}Enter SMTP password:${NC}" smtp_pass;
     fi
-done
 echo "Using the default SMTP server configuration."
 echo "SMTP host: ${smtp_host}"
 echo "SMTP port: ${smtp_port}"
