@@ -90,8 +90,8 @@ echo "SMTP security: ${smtp_security}"
 echo "SMTP username: ${smtp_user}"
 
 echo "-------------------------------------------------------------------------------------------------------------"
-tput setaf 4; echo "Press Enter to continue setup… "
-read -ra response -p "Press Enter to continue setup… "
+
+read -ra response -p "${RED}Press Enter to continue setup…${NC} "
 apt-get install build-essential
 
 echo " =============================Checking for Docker============================================================="
@@ -101,8 +101,8 @@ if [ -x "$(command -v docker)" ]; then
     service docker start
 else
     echo "*****************************Installing docker***********************************************************"
-    tput setaf 4; echo "Press Enter to continue setup… "
-    read -ra response -p "Press Enter to continue setup… "
+    
+    read -ra response -p "${RED}Press Enter to continue setup…${NC} "
     apt -y install dirmngr --install-recommends
     apt -y install git curl make apt-transport-https ca-certificates gnupg lsb-release
     curl -fsSL https://get.docker.com -o get-docker.sh
@@ -112,8 +112,8 @@ else
 fi
 
 echo " =============================Installing Docker Compose======================================================="
-  tput setaf 4; echo "Press Enter to continue setup… "
-  read -ra response -p "Press Enter to continue setup… "
+  
+  read -ra response -p "${RED}Press Enter to continue setup…${NC} "
   curl -L "https://github.com/docker/compose/releases/download/1.28.5/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
   chmod +x /usr/local/bin/docker-compose
   current_user=''
@@ -133,8 +133,8 @@ gpasswd -a "$current_user" docker
 service docker restart
 
 echo "===============================Building docker-riak=============================================================" 
-tput setaf 4; echo "Press Enter to continue setup… "
-read -ra response -p "Press Enter to continue setup… "
+
+read -ra response -p "${RED}Press Enter to continue setup…${NC} "
 GIT_BRANCH='main'
 
 dir=$(download_repo $DOCKER_RIAK_REPO $GIT_BRANCH)
@@ -153,8 +153,8 @@ cd "$DEPLOYMENATOR_DIR"
 
 
 echo "=================================Building Gurosh-core docker =========================================" 
-tput setaf 4; echo "Press Enter to continue setup… "
-read -ra response -p "Press Enter to continue setup… "
+
+read -ra response -p "${RED}Press Enter to continue setup…${NC} "
 GIT_BRANCH='main'
 
 dir=$(download_repo $DOCKER_NODE_REPO $GIT_BRANCH)
@@ -207,8 +207,8 @@ sleep 1
 cd "$DEPLOYMENATOR_DIR"
 
 echo "=========================================Building nginx-proxy ==================================================="
-tput setaf 4; echo "Press Enter to continue setup… "
-read -ra response -p "Press Enter to continue setup… "
+
+read -ra response -p "${RED}Press Enter to continue setup…${NC} "
 GIT_BRANCH='main'
 
 dir=$(download_repo $NGINX_PROXY_REPO $GIT_BRANCH)
@@ -231,8 +231,8 @@ cd "$DEPLOYMENATOR_DIR"
 
 
 echo " =====================================Building microservices======================================================"
-tput setaf 4; echo "Press Enter to continue setup… "
-read -ra response -p "Press Enter to continue setup… "
+
+read -ra response -p "${RED}Press Enter to continue setup…${NC} "
 GIT_BRANCH="main"
 
 rm -f ./clear.env
