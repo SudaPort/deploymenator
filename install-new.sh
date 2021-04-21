@@ -90,16 +90,19 @@ echo "SMTP security: ${smtp_security}"
 echo "SMTP username: ${smtp_user}"
 
 echo "-------------------------------------------------------------------------------------------------------------"
+tput setaf 4; echo "Press Enter to continue setup… "
 read -ra response -p "Press Enter to continue setup… "
 apt-get install build-essential
 
 echo " =============================Checking for Docker============================================================="
-read -ra response -p "Press Enter to continue setup… "
+
 if [ -x "$(command -v docker)" ]; then
     echo "***************************Docker is installed************************************************************"
     service docker start
 else
     echo "*****************************Installing docker***********************************************************"
+    tput setaf 4; echo "Press Enter to continue setup… "
+    read -ra response -p "Press Enter to continue setup… "
     apt -y install dirmngr --install-recommends
     apt -y install git curl make apt-transport-https ca-certificates gnupg lsb-release
     curl -fsSL https://get.docker.com -o get-docker.sh
@@ -109,6 +112,7 @@ else
 fi
 
 echo " =============================Installing Docker Compose======================================================="
+  tput setaf 4; echo "Press Enter to continue setup… "
   read -ra response -p "Press Enter to continue setup… "
   curl -L "https://github.com/docker/compose/releases/download/1.28.5/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
   chmod +x /usr/local/bin/docker-compose
@@ -129,6 +133,7 @@ gpasswd -a "$current_user" docker
 service docker restart
 
 echo "===============================Building docker-riak=============================================================" 
+tput setaf 4; echo "Press Enter to continue setup… "
 read -ra response -p "Press Enter to continue setup… "
 GIT_BRANCH='main'
 
@@ -148,6 +153,7 @@ cd "$DEPLOYMENATOR_DIR"
 
 
 echo "=================================Building Gurosh-core docker =========================================" 
+tput setaf 4; echo "Press Enter to continue setup… "
 read -ra response -p "Press Enter to continue setup… "
 GIT_BRANCH='main'
 
@@ -201,6 +207,7 @@ sleep 1
 cd "$DEPLOYMENATOR_DIR"
 
 echo "=========================================Building nginx-proxy ==================================================="
+tput setaf 4; echo "Press Enter to continue setup… "
 read -ra response -p "Press Enter to continue setup… "
 GIT_BRANCH='main'
 
@@ -224,6 +231,7 @@ cd "$DEPLOYMENATOR_DIR"
 
 
 echo " =====================================Building microservices======================================================"
+tput setaf 4; echo "Press Enter to continue setup… "
 read -ra response -p "Press Enter to continue setup… "
 GIT_BRANCH="main"
 
