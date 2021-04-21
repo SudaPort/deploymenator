@@ -90,10 +90,11 @@ echo "SMTP security: ${smtp_security}"
 echo "SMTP username: ${smtp_user}"
 
 echo "-------------------------------------------------------------------------------------------------------------"
-read -ra response -p "Press Enter to start the system deployment process… "
+read -ra response -p "Press Enter to continue setup… "
 apt-get install build-essential
 
 echo " =============================Checking for Docker============================================================="
+read -ra response -p "Press Enter to continue setup… "
 if [ -x "$(command -v docker)" ]; then
     echo "***************************Docker is installed************************************************************"
     service docker start
@@ -107,8 +108,8 @@ else
     service docker start
 fi
 
-echo " =============================Checking for Docker Compose======================================================="
-  echo "*********************************Installing Docker Compose****************************************************"
+echo " =============================Installing Docker Compose======================================================="
+  read -ra response -p "Press Enter to continue setup… "
   curl -L "https://github.com/docker/compose/releases/download/1.28.5/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
   chmod +x /usr/local/bin/docker-compose
   current_user=''
@@ -128,6 +129,7 @@ gpasswd -a "$current_user" docker
 service docker restart
 
 echo "===============================Building docker-riak=============================================================" 
+read -ra response -p "Press Enter to continue setup… "
 GIT_BRANCH='main'
 
 dir=$(download_repo $DOCKER_RIAK_REPO $GIT_BRANCH)
@@ -146,6 +148,7 @@ cd "$DEPLOYMENATOR_DIR"
 
 
 echo "=================================Building Gurosh-core docker =========================================" 
+read -ra response -p "Press Enter to continue setup… "
 GIT_BRANCH='main'
 
 dir=$(download_repo $DOCKER_NODE_REPO $GIT_BRANCH)
@@ -198,6 +201,7 @@ sleep 1
 cd "$DEPLOYMENATOR_DIR"
 
 echo "=========================================Building nginx-proxy ==================================================="
+read -ra response -p "Press Enter to continue setup… "
 GIT_BRANCH='main'
 
 dir=$(download_repo $NGINX_PROXY_REPO $GIT_BRANCH)
@@ -220,6 +224,7 @@ cd "$DEPLOYMENATOR_DIR"
 
 
 echo " =====================================Building microservices======================================================"
+read -ra response -p "Press Enter to continue setup… "
 GIT_BRANCH="main"
 
 rm -f ./clear.env
