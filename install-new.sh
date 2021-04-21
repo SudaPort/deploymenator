@@ -1,4 +1,7 @@
 #!/bin/bash
+RED=`tput setaf 1`
+GREEN=`tput setaf 2`
+NC=`tput sgr0`
 chmod u+r+w+x ./logo.sh
 ./logo.sh
 DEPLOYMENATOR_DIR=${PWD}
@@ -49,7 +52,7 @@ function makeconfig {
 # ip address of the host
 while true
 do
-    read -ra HOST_IP -p "Enter the IP address of the host (must be available for other nodes): "
+    read -ra HOST_IP -p "${GREEN}Enter the IP address of the host (must be available for other nodes): ${NC}"
     HOST_IP=${HOST_IP,,}
     HOST_IP=${HOST_IP#http://}
     HOST_IP=${HOST_IP#https://}
@@ -57,7 +60,7 @@ do
         echo "Error: address [$HOST_IP] is not valid!"
         continue
     else
-        read -ra response -p "Confirm the IP address: ${HOST_IP}? [Y/n] "
+        read -ra response -p "${GREEN}Confirm the IP address: ${HOST_IP}? [Y/n]${NC} "
         if [[ -z $response || $response = [yY] ]]; then
             break 
         fi 
@@ -68,8 +71,8 @@ echo "--------------------------------------------------------------------------
 # domain for all services
 while true
 do
-    read -ra DOMAIN -p "Enter the domain name for all services (without port and protocol): "
-    read -ra response -p "Confirm the domain name: ${DOMAIN}? [Y/n] "
+    read -ra DOMAIN -p "${GREEN}Enter the domain name for all services (without port and protocol):${NC} "
+    read -ra response -p "${GREEN}Confirm the domain name: ${DOMAIN}? [Y/n]${NC} "
     if [[ -z $response || $response = [yY] ]]; then
         break 
     fi
@@ -77,12 +80,22 @@ done
 
 echo "-------------------------------------------------------------------------------------------------------------"
 # SMTP credentials
-smtp_host=$DEFAULT_SMTP_HOST
-smtp_port=$DEFAULT_SMTP_PORT
-smtp_security=$DEFAULT_SMTP_SECURITY
-smtp_user=$DEFAULT_SMTP_USERNAME
-smtp_pass=$DEFAULT_SMTP_PASSWORD
-
+while true
+do
+read -ra response -p "${GREEN}Use default SMTP?: [Y/n]${NC} "
+    if [[ -z $response || $response = [yY] ]]; then 
+      smtp_host=$DEFAULT_SMTP_HOST
+      smtp_port=$DEFAULT_SMTP_PORT
+      smtp_security=$DEFAULT_SMTP_SECURITY
+      smtp_user=$DEFAULT_SMTP_USERNAME
+      smtp_pass=$DEFAULT_SMTP_PASSWORD
+    else
+      read -p "${GREEN}Enter SMTP host:${NC}" smtp_host;
+      read -p "${GREEN}Enter SMTP port:${NC}" smtp_port;
+      read -p "${GREEN}Enter SMTP security:${NC}" smtp_security;
+      read -p "${GREEN}Enter SMTP username:${NC}" smtp_user;
+      read -p "${GREEN}Enter SMTP password:${NC}" smtp_pass;
+    fi
 echo "Using the default SMTP server configuration."
 echo "SMTP host: ${smtp_host}"
 echo "SMTP port: ${smtp_port}"
@@ -91,7 +104,7 @@ echo "SMTP username: ${smtp_user}"
 
 echo "-------------------------------------------------------------------------------------------------------------"
 
-read -ra response -p "${RED}Press Enter to continue setup…${NC} "
+read -ra response -p "${GREEN}Press Enter to continue setup…${NC} "
 apt-get install build-essential
 
 echo " =============================Checking for Docker============================================================="
@@ -102,7 +115,7 @@ if [ -x "$(command -v docker)" ]; then
 else
     echo "*****************************Installing docker***********************************************************"
     
-    read -ra response -p "${RED}Press Enter to continue setup…${NC} "
+    read -ra response -p "${GREEN}Press Enter to continue setup…${NC} "
     apt -y install dirmngr --install-recommends
     apt -y install git curl make apt-transport-https ca-certificates gnupg lsb-release
     curl -fsSL https://get.docker.com -o get-docker.sh
@@ -113,7 +126,7 @@ fi
 
 echo " =============================Installing Docker Compose======================================================="
   
-  read -ra response -p "${RED}Press Enter to continue setup…${NC} "
+  read -ra response -p "${GREEN}Press Enter to continue setup…${NC} "
   curl -L "https://github.com/docker/compose/releases/download/1.28.5/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
   chmod +x /usr/local/bin/docker-compose
   current_user=''
@@ -134,7 +147,7 @@ service docker restart
 
 echo "===============================Building docker-riak=============================================================" 
 
-read -ra response -p "${RED}Press Enter to continue setup…${NC} "
+read -ra response -p "${GREEN}Press Enter to continue setup…${NC} "
 GIT_BRANCH='main'
 
 dir=$(download_repo $DOCKER_RIAK_REPO $GIT_BRANCH)
@@ -154,7 +167,7 @@ cd "$DEPLOYMENATOR_DIR"
 
 echo "=================================Building Gurosh-core docker =========================================" 
 
-read -ra response -p "${RED}Press Enter to continue setup…${NC} "
+read -ra response -p "${GREEN}Press Enter to continue setup…${NC} "
 GIT_BRANCH='main'
 
 dir=$(download_repo $DOCKER_NODE_REPO $GIT_BRANCH)
@@ -208,7 +221,7 @@ cd "$DEPLOYMENATOR_DIR"
 
 echo "=========================================Building nginx-proxy ==================================================="
 
-read -ra response -p "${RED}Press Enter to continue setup…${NC} "
+read -ra response -p "${GREEN}Press Enter to continue setup…${NC} "
 GIT_BRANCH='main'
 
 dir=$(download_repo $NGINX_PROXY_REPO $GIT_BRANCH)
@@ -232,7 +245,7 @@ cd "$DEPLOYMENATOR_DIR"
 
 echo " =====================================Building microservices======================================================"
 
-read -ra response -p "${RED}Press Enter to continue setup…${NC} "
+read -ra response -p "${GREEN}Press Enter to continue setup…${NC} "
 GIT_BRANCH="main"
 
 rm -f ./clear.env
