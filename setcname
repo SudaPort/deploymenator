@@ -1,0 +1,2 @@
+Import-CSV -Path "https://github.com/sudaport/gurosh/CNAME.csv" | ForEach-Object { New-AzureRmDnsRecordSet -Name $_.Name -RecordType $_.RecordType -ZoneName $_.ZoneName -ResourceGroupName $_.ResourceGroupName-Ttl $_.TTL -DnsRecords (New-AzureRmDnsRecordConfig -IPv4Address $_.Value) }
+Import-CSV -Path "https://github.com/sudaport/gurosh/SANDCNAME.csv" | ForEach-Object { New-AzureRmDnsRecordSet -Name $_.Name -RecordType $_.RecordType -ZoneName $_.ZoneName -ResourceGroupName $_.ResourceGroupName-Ttl $_.TTL -DnsRecords (New-AzureRmDnsRecordConfig -IPv4Address $_.Value) }
