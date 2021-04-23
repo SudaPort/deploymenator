@@ -1,8 +1,8 @@
 #!/bin/bash
 
 REPOS=(
-    "github.com/openbankit/cashier-daemon.git"
-    "github.com/openbankit/emission-daemon.git"
+    "github.com/sudaport/cashier-daemon.git"
+    "github.com/sudaport/emission-daemon.git"
 )
 
 GIT_BRANCH='mirror'

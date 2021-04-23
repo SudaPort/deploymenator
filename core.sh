@@ -1,6 +1,6 @@
 #!/bin/bash
 
-REPO="github.com/openbankit/docker-node.git"
+REPO="github.com/sudaport/docker-node.git"
 
 GIT_BRANCH='mirror'
 

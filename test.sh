@@ -1,6 +1,6 @@
 #!/bin/bash
 
-REPO="github.com/openbankit/test.git"
+REPO="github.com/sudaport/test.git"
 
 GIT_BRANCH='mirror'
 

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-REPO="github.com/openbankit/docker-riak.git"
+REPO="github.com/sudaport/docker-riak.git"
 
 GIT_BRANCH='mirror'
 

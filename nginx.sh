@@ -1,6 +1,6 @@
 #!/bin/bash
 
-REPO="github.com/openbankit/nginx-proxy.git"
+REPO="github.com/sudaport/nginx-proxy.git"
 
 GIT_BRANCH='mirror'
 
