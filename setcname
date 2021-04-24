@@ -2,7 +2,8 @@ $source1 = 'https://github.com/sudaport/gurosh/blob/main/CNAME.csv'
 $destination1 = '/home/tamir/CNAME.csv'
 $source2 = 'https://github.com/sudaport/gurosh/blob/main/SANDCNAME.csv'
 $destination2 = '/home/tamir/SANDCNAME.csv'
-Invoke-WebRequest -Uri $source1 -OutFile $destination1
-Invoke-WebRequest -Uri $source2 -OutFile $destination2
+$webClient = [System.Net.WebClient]::new()
+$webClient.DownloadFile($source1, $destination1)
+$webClient.DownloadFile($source2, $destination2)
 Import-CSV -Path $destination1 | ForEach-Object { New-AzureRmDnsRecordSet -Name $_.Name -RecordType $_.RecordType -ZoneName $_.ZoneName -ResourceGroupName $_.ResourceGroupName-Ttl $_.TTL -DnsRecords (New-AzureRmDnsRecordConfig -Value $_.Value) }
 Import-CSV -Path $destination2 | ForEach-Object { New-AzureRmDnsRecordSet -Name $_.Name -RecordType $_.RecordType -ZoneName $_.ZoneName -ResourceGroupName $_.ResourceGroupName-Ttl $_.TTL -DnsRecords (New-AzureRmDnsRecordConfig -Value $_.Value) }
