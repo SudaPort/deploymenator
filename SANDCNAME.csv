@@ -1,6 +1,4 @@
 Name,RecordType,ZoneName,ResourceGroupName,TTL,Value
-@,A,sandbox.gurosh.com,Gurosh,60,102.133.185.190
-www,A,sandbox.gurosh.com,Gurosh,60,102.133.185.190
 agent,CNAME,sandbox.gurosh.com,Gurosh,60,sandbox.gurosh.com
 backoffice,CNAME,sandbox.gurosh.com,Gurosh,60,sandbox.gurosh.com
 info,CNAME,sandbox.gurosh.com,Gurosh,60,sandbox.gurosh.com

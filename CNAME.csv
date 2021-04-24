@@ -1,17 +1,15 @@
-Name	RecordType	ZoneName	ResourceGroupName	TTL	Value
-@	A	sandbox.gurosh.com	Gurosh	60	102.37.101.64
-www	A	sandbox.gurosh.com	Gurosh	60	102.37.101.64
-agent	CNAME	gurosh.com	Gurosh	60	gurosh.com
-backoffice	CNAME	gurosh.com	Gurosh	60	gurosh.com
-info	CNAME	gurosh.com	Gurosh	60	gurosh.com
-merchant	CNAME	gurosh.com	Gurosh	60	gurosh.com
-offline	CNAME	gurosh.com	Gurosh	60	gurosh.com
-wallet	CNAME	gurosh.com	Gurosh	60	gurosh.com
-welcome	CNAME	gurosh.com	Gurosh	60	gurosh.com
-abs	CNAME	gurosh.com	Gurosh	60	gurosh.com
-api	CNAME	gurosh.com	Gurosh	60	gurosh.com
-blockchain	CNAME	gurosh.com	Gurosh	60	gurosh.com
-cashier	CNAME	gurosh.com	Gurosh	60	gurosh.com
-emission	CNAME	gurosh.com	Gurosh	60	gurosh.com
-exchange	CNAME	gurosh.com	Gurosh	60	gurosh.com
-riak	CNAME	gurosh.com	Gurosh	60	gurosh.com
+Name,RecordType,ZoneName,ResourceGroupName,TTL,Value
+agent,CNAME,gurosh.com,Gurosh,60,gurosh.com
+backoffice,CNAME,gurosh.com,Gurosh,60,gurosh.com
+info,CNAME,gurosh.com,Gurosh,60,gurosh.com
+merchant,CNAME,gurosh.com,Gurosh,60,gurosh.com
+offline,CNAME,gurosh.com,Gurosh,60,gurosh.com
+wallet,CNAME,gurosh.com,Gurosh,60,gurosh.com
+welcome,CNAME,gurosh.com,Gurosh,60,gurosh.com
+abs,CNAME,gurosh.com,Gurosh,60,gurosh.com
+api,CNAME,gurosh.com,Gurosh,60,gurosh.com
+blockchain,CNAME,gurosh.com,Gurosh,60,gurosh.com
+cashier,CNAME,gurosh.com,Gurosh,60,gurosh.com
+emission,CNAME,gurosh.com,Gurosh,60,gurosh.com
+exchange,CNAME,gurosh.com,Gurosh,60,gurosh.com
+riak,CNAME,gurosh.com,Gurosh,60,gurosh.com
