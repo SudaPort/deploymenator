@@ -1,3 +1,9 @@
+$IPpro = '102.37.101.64'
+$IPsand = '102.133.185.190'
+
+az network dns record-set a add-record --resource-group Gurosh --zone-name gurosh.com --record-set-name www --ipv4-address $IPpro
+az network dns record-set a add-record --resource-group Gurosh --zone-name gurosh.com --record-set-name "@" --ipv4-address $IPpro
+az network dns record-set cname set-record --resource-group Gurosh --zone-name gurosh.com --record-set-name www --cname gurosh.com
 az network dns record-set cname set-record --resource-group Gurosh --zone-name gurosh.com --record-set-name agent --cname www.gurosh.com
 az network dns record-set cname set-record --resource-group Gurosh --zone-name gurosh.com --record-set-name backoffice --cname www.gurosh.com
 az network dns record-set cname set-record --resource-group Gurosh --zone-name gurosh.com --record-set-name info --cname www.gurosh.com
@@ -12,3 +18,22 @@ az network dns record-set cname set-record --resource-group Gurosh --zone-name g
 az network dns record-set cname set-record --resource-group Gurosh --zone-name gurosh.com --record-set-name emission --cname www.gurosh.com
 az network dns record-set cname set-record --resource-group Gurosh --zone-name gurosh.com --record-set-name exchange --cname www.gurosh.com
 az network dns record-set cname set-record --resource-group Gurosh --zone-name gurosh.com --record-set-name riak --cname www.gurosh.com
+
+az network dns record-set a add-record --resource-group Gurosh --zone-name sandbox.gurosh.com --record-set-name www --ipv4-address $IPsand
+az network dns record-set a add-record --resource-group Gurosh --zone-name sandbox.gurosh.com --record-set-name "@" --ipv4-address $IPsand
+az network dns record-set cname set-record --resource-group Gurosh --zone-name sandbox.gurosh.com --record-set-name www --cname sandbox.gurosh.com
+az network dns record-set cname set-record --resource-group Gurosh --zone-name sandbox.gurosh.com --record-set-name agent --cname www.sandbox.gurosh.com
+az network dns record-set cname set-record --resource-group Gurosh --zone-name sandbox.gurosh.com --record-set-name backoffice --cname www.sandbox.gurosh.com
+az network dns record-set cname set-record --resource-group Gurosh --zone-name sandbox.gurosh.com --record-set-name info --cname www.sandbox.gurosh.com
+az network dns record-set cname set-record --resource-group Gurosh --zone-name sandbox.gurosh.com --record-set-name merchant --cname www.sandbox.gurosh.com
+az network dns record-set cname set-record --resource-group Gurosh --zone-name sandbox.gurosh.com --record-set-name offline --cname www.sandbox.gurosh.com
+az network dns record-set cname set-record --resource-group Gurosh --zone-name sandbox.gurosh.com --record-set-name wallet --cname www.sandbox.gurosh.com
+az network dns record-set cname set-record --resource-group Gurosh --zone-name sandbox.gurosh.com --record-set-name welcome --cname www.sandbox.gurosh.com
+az network dns record-set cname set-record --resource-group Gurosh --zone-name sandbox.gurosh.com --record-set-name abs --cname www.sandbox.gurosh.com
+az network dns record-set cname set-record --resource-group Gurosh --zone-name sandbox.gurosh.com --record-set-name api --cname www.sandbox.gurosh.com
+az network dns record-set cname set-record --resource-group Gurosh --zone-name sandbox.gurosh.com --record-set-name blockchain --cname www.sandbox.gurosh.com
+az network dns record-set cname set-record --resource-group Gurosh --zone-name sandbox.gurosh.com --record-set-name cashier --cname www.sandbox.gurosh.com
+az network dns record-set cname set-record --resource-group Gurosh --zone-name sandbox.gurosh.com --record-set-name emission --cname www.sandbox.gurosh.com
+az network dns record-set cname set-record --resource-group Gurosh --zone-name sandbox.gurosh.com --record-set-name exchange --cname www.sandbox.gurosh.com
+az network dns record-set cname set-record --resource-group Gurosh --zone-name sandbox.gurosh.com --record-set-name riak --cname www.sandbox.gurosh.com
+
