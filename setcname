@@ -1,5 +1,5 @@
-$IPpro = 'IP'
-$IPsand = 'IP'
+$IPpro = '20.74.141.248'
+$IPsand = '20.74.155.8'
 
 az network dns record-set a add-record --resource-group Gurosh --zone-name gurosh.com --record-set-name www --ipv4-address $IPpro
 az network dns record-set a add-record --resource-group Gurosh --zone-name gurosh.com --record-set-name "@" --ipv4-address $IPpro
