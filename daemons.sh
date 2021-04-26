@@ -5,7 +5,7 @@ REPOS=(
     "github.com/sudaport/emission-daemon.git"
 )
 
-GIT_BRANCH='mirror'
+GIT_BRANCH='main'
 CUR_DIR=${PWD}
 
 function makeconfig {
