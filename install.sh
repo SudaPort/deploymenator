@@ -169,11 +169,11 @@ sleep 3
 
 # generating seed for master and fee agent accounts
 echo "Generating seeds ============================================================================="
-GENSEED="$(docker run --rm stellar/stellar-core src/stellar-core --genseed)"
+GENSEED="$(docker run --rm stellar/stellar-core src/stellar-core gen-seed)"
 MASTER_SEED=${GENSEED:13:56}
 MASTER_PUBLIC_KEY=${GENSEED:82:56}
 
-GENSEED="$(docker run --rm stellar/stellar-core src/stellar-core --genseed)"
+GENSEED="$(docker run --rm stellar/stellar-core src/stellar-core gen-seed)"
 COMISSION_SEED=${GENSEED:13:56}
 COMISSION_PUBLIC_KEY=${GENSEED:82:56}
 
@@ -191,7 +191,7 @@ sleep 3
 
 # creating validator
 echo "Creating validator ==========================================================================="
-GENSEED="$(docker run --rm stellar/stellar-core src/stellar-core --genseed)"
+GENSEED="$(docker run --rm stellar/stellar-core src/stellar-core gen-seed)"
 NODE_SEED=${GENSEED:13:56}
 NODE_PUBLIC_KEY=${GENSEED:82:56}
 
