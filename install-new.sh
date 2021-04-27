@@ -152,7 +152,7 @@ GIT_BRANCH='main'
 dir=$(download_repo $DOCKER_RIAK_REPO $GIT_BRANCH)
 
 cd "$dir"
-rm -f ./.env
+# rm -f ./.env
 echo "RIAK_HOST=$HOST_IP" >> ./.env
 echo "DOMAIN=$HOST_IP" >> ./.env
 echo "HOST=$HOST_IP" >> ./.env
@@ -227,7 +227,7 @@ dir=$(download_repo $NGINX_PROXY_REPO $GIT_BRANCH)
 
 cd "$dir"
 chmod u+x+r+w ./docker/nginx/entrypoint.sh
-rm -f ./.env
+# rm -f ./.env
 echo "DOMAIN=${DOMAIN}" >> ./.env
 echo "HORIZON_NP_HOST=${HOST_IP}" >> ./.env
 echo "RIAK_NP_HOST=${HOST_IP}" >> ./.env
