@@ -11,8 +11,8 @@ DEFAULT_NETWORK_PASSPHRASE="Gurosh Network ; April 2021"
 DEFAULT_SMTP_HOST="smtp.gmail.com"
 DEFAULT_SMTP_PORT=465
 DEFAULT_SMTP_SECURITY="ssl"
-DEFAULT_SMTP_USERNAME="openbankit.notifications.test@gmail.com"
-DEFAULT_SMTP_PASSWORD="k1Yu^(>=]2)C[](+nH7o" 
+DEFAULT_SMTP_USERNAME="sudaport1@gmail.com"
+DEFAULT_SMTP_PASSWORD="sudaport135792468" 
 
 DOCKER_RIAK_REPO="github.com/SudaPort/docker-riak.git"
 DOCKER_NODE_REPO="github.com/SudaPort/docker-node.git"
