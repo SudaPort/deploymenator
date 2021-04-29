@@ -1,19 +1,19 @@
 Host                              Container                        Service 
-8010                              80/443                           smartmoney-frontend-nginx
---                                --                               smartmoney-frontend-npm
+8010                              80/443                           gurosh-frontend-nginx
+--                                --                               gurosh-frontend-npm
 8089                              80                               exchange-nginx
 --                                --                               exchange-php-fpm
 --                                --                               exchange_bower-builder_1
 27018                             27017                            exchange-mongo
---                                --                               smartmoney-merchant-bot-node
---                                --                               smartmoney-cards-bot-node
+--                                --                               gurosh-merchant-bot-node
+--                                --                               gurosh-cards-bot-node
 8180                              80                               crypto-api-nginx
 --                                9000                             crypto-api-php
 --                                11211                            crypto-api-memcached
-8092                              80                               smartmoney-abs-nginx
---                                9000                             smartmoney-abs-fpm
---                                --                               smartmoney-abs-npm
---                                5432                             smartmoney-abs-postgre
+8092                              80                               gurosh-abs-nginx
+--                                9000                             gurosh-abs-fpm
+--                                --                               gurosh-abs-npm
+--                                5432                             gurosh-abs-postgre
 --                                --                               gurosh-reverse-nginx
 8088/8098                         8088/8098/80/443                 crypto-reverse-nginx (riak)
 4369/6000-6005/8087/8093/8099     4369/6000-6005/8087/8093/8099    crypto-riak-node
