@@ -14,7 +14,7 @@ DEFAULT_SMTP_HOST="smtp.gmail.com"
 DEFAULT_SMTP_PORT=465
 DEFAULT_SMTP_SECURITY="ssl"
 DEFAULT_SMTP_USERNAME="sudaport1@gmail.com"
-DEFAULT_SMTP_PASSWORD="sudaport135792468" 
+DEFAULT_SMTP_PASSWORD="passwordhere" 
 
 DOCKER_RIAK_REPO="github.com/SudaPort/docker-riak.git"
 DOCKER_NODE_REPO="github.com/SudaPort/docker-node.git"
