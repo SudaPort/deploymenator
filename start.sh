@@ -199,7 +199,8 @@ echo $'\n'
 echo "Master's and Fee Agent's credentials were written to ${DEPLOYMENATOR_DIR}/${SEEDS_FILE}"
 echo $'\n'
 sleep 3
-
+make start
+sleep 3
 # creating validator
 echo "*****************************************************Creating validator ****************************************"
 GENSEED="$(docker run --rm crypto/core src/stellar-core gen-seed)"
@@ -213,7 +214,7 @@ echo "Using Master Public Key: ${MASTER_PUBLIC_KEY}"
 echo "Using Fee Agent Public Key: ${COMISSION_PUBLIC_KEY}"
 echo "Using Riak host: ${RIAK_PROTOCOL_HOST_PORT}"
 sleep 3
-rm -f ./.core-cfg
+# rm -f ./.core-cfg
 sleep 1
 
 cd "$DEPLOYMENATOR_DIR"
