@@ -289,10 +289,6 @@ echo "SMTP_SECURITY=$smtp_security" >> ./default.env;
 echo "SMTP_USER=$smtp_user" >> ./default.env;
 echo "SMTP_PASS=$smtp_pass" >> ./default.env;
 
-make agent
-make gate
-make validator
-
 read -p "${RED}Enter POSTGRES USER:${NC}" POSTGRES_USER_ABS;
 read -p "${RED}Enter POSTGRES PASSWORD:${NC}" POSTGRES_PASSWORD_ABS;
 echo "POSTGRES_USER_ABS=${POSTGRES_USER_ABS}" >> ./default.env;
