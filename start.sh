@@ -174,6 +174,7 @@ cd "$dir"
 sed -i -e "s/NETWORK_PASSPHRASE=.*$/NETWORK_PASSPHRASE=${DEFAULT_NETWORK_PASSPHRASE}/g" ./.env
 read -p "${RED}Enter POSTGRES USER:${NC}" POSTGRES_USER_ST;
 read -p "${RED}Enter POSTGRES PASSWORD:${NC}" POSTGRES_PASSWORD_ST;
+echo "" >> ./.env;
 echo "POSTGRES_USER_ST=${POSTGRES_USER_ST}" >> ./.env;
 echo "POSTGRES_PASSWORD_ST=${POSTGRES_PASSWORD_ST}" >> ./.env;
 echo "Stellar Postgres DB Username=${POSTGRES_USER_ST}" >> ${DEPLOYMENATOR_DIR}/${SEEDS_FILE};
