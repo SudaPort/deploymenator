@@ -101,10 +101,6 @@ echo "SMTP port: ${smtp_port}"
 echo "SMTP security: ${smtp_security}"
 echo "SMTP username: ${smtp_user}"
 
-echo "${RED}POSTGRES USER = root for Stellar DB${NC}"
-read -p "${RED}Enter POSTGRES PASSWORD:${NC}" POSTGRES_PASSWORD;
-echo "Stellar Postgres DB Password=${POSTGRES_PASSWORD}" >> ${DEPLOYMENATOR_DIR}/${SEEDS_FILE}
-echo "" >> ${DEPLOYMENATOR_DIR}/${SEEDS_FILE}
 echo "-------------------------------------------------------------------------------------------------------------"
 
 read -ra response -p "${GREEN}Press Enter to continue setup…${NC} "
