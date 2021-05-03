@@ -305,8 +305,8 @@ done
 
 echo "***************************************************make indexes on api...*******************************"
 cd ${DEPLOYMENATOR_DIR}/../api && sleep 1 && make indexes
-echo "*******************************************************************************************************************"
-echo "*   SUDAPORT.com    SUDAPORT.com    SUDAPORT.com    SUDAPORT.com    SUDAPORT.com    SUDAPORT.com      SUDAPORT.com*"
-echo "*   SUDAPORT.com    SUDAPORT.com    SUDAPORT.com    SUDAPORT.com    SUDAPORT.com    SUDAPORT.com      SUDAPORT.com*"
-echo "*******************************************************************************************************************"
+echo "${GREEN}*******************************************************************************************************************"
+echo "${GREEN}*   SUDAPORT.com    SUDAPORT.com    SUDAPORT.com    SUDAPORT.com    SUDAPORT.com    SUDAPORT.com      SUDAPORT.com*"
+echo "${GREEN}*   SUDAPORT.com    SUDAPORT.com    SUDAPORT.com    SUDAPORT.com    SUDAPORT.com    SUDAPORT.com      SUDAPORT.com*"
+echo "${GREEN}*******************************************************************************************************************${NC}"
 cd
