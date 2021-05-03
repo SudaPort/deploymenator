@@ -172,10 +172,12 @@ GIT_BRANCH='main'
 dir=$(download_repo $DOCKER_NODE_REPO $GIT_BRANCH)
 cd "$dir"
 sed -i -e "s/NETWORK_PASSPHRASE=.*$/NETWORK_PASSPHRASE=${DEFAULT_NETWORK_PASSPHRASE}/g" ./.env
-echo "${RED}POSTGRES USER = root for Stellar DB${NC}"
-read -p "${RED}Enter POSTGRES PASSWORD:${NC}" POSTGRES_PASSWORD;
-echo "Stellar Postgres DB Password=${POSTGRES_PASSWORD}" >> ./.env;
-echo "Stellar Postgres DB Password=${POSTGRES_PASSWORD}" >> ${DEPLOYMENATOR_DIR}/${SEEDS_FILE};
+read -p "${RED}Enter POSTGRES USER:${NC}" POSTGRES_USER_ST;
+read -p "${RED}Enter POSTGRES PASSWORD:${NC}" POSTGRES_PASSWORD_ST;
+echo "POSTGRES_USER_ST=${POSTGRES_USER_ST}" >> ./.env;
+echo "POSTGRES_PASSWORD_ST=${POSTGRES_PASSWORD_ST}" >> ./.env;
+echo "Stellar Postgres DB Username=${POSTGRES_USER_ST}" >> ${DEPLOYMENATOR_DIR}/${SEEDS_FILE};
+echo "Stellar Postgres DB Password=${POSTGRES_PASSWORD_ST}" >> ${DEPLOYMENATOR_DIR}/${SEEDS_FILE};
 echo "" >> ${DEPLOYMENATOR_DIR}/${SEEDS_FILE};
 # building node
 echo "Starting to build Node, this may take nearly 40 minutes"
@@ -277,11 +279,13 @@ echo "SMTP_PORT=$smtp_port" >> ./default.env;
 echo "SMTP_SECURITY=$smtp_security" >> ./default.env;
 echo "SMTP_USER=$smtp_user" >> ./default.env;
 echo "SMTP_PASS=$smtp_pass" >> ./default.env;
-echo "${RED}POSTGRES USER = root for ABS${NC}";
-read -p "${RED}Enter POSTGRES PASSWORD:${NC}" POSTGRES_PASSWORD;
-echo "" >> ./default.env;
-echo "POSTGRES_PASSWORD=${POSTGRES_PASSWORD}" >> ./default.env;
-echo "ABS Postgres DB Password=${POSTGRES_PASSWORD}" >> ${DEPLOYMENATOR_DIR}/${SEEDS_FILE};
+
+read -p "${RED}Enter POSTGRES USER:${NC}" POSTGRES_USER_ABS;
+read -p "${RED}Enter POSTGRES PASSWORD:${NC}" POSTGRES_PASSWORD_ABS;
+echo "POSTGRES_USER_ST=${POSTGRES_USER_ABS}" >> ./default.env;
+echo "POSTGRES_PASSWORD_ST=${POSTGRES_PASSWORD_ABS}" >> ./default.env;
+echo "ABS Postgres DB Username=${POSTGRES_USER_ABS}" >> ${DEPLOYMENATOR_DIR}/${SEEDS_FILE};
+echo "ABS Postgres DB Password=${POSTGRES_PASSWORD_ABS}" >> ${DEPLOYMENATOR_DIR}/${SEEDS_FILE};
 echo "" >> ${DEPLOYMENATOR_DIR}/${SEEDS_FILE};
 
 for i in "${MICRO_REPOS[@]}"
