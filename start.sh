@@ -19,8 +19,8 @@ DEFAULT_SMTP_PASSWORD="passwordhere"
 DOCKER_RIAK_REPO="github.com/SudaPort/docker-riak.git"
 DOCKER_NODE_REPO="github.com/SudaPort/docker-node.git"
 NGINX_PROXY_REPO="github.com/SudaPort/nginx-proxy.git"
+ABS_REPO="github.com/SudaPort/abs.git"
 MICRO_REPOS=(
-    "github.com/SudaPort/abs.git"
     "github.com/SudaPort/api.git"
     "github.com/SudaPort/cards-bot.git"
     "github.com/SudaPort/merchant-bot.git"
@@ -176,7 +176,11 @@ GIT_BRANCH='main'
 dir=$(download_repo $DOCKER_NODE_REPO $GIT_BRANCH)
 cd "$dir"
 sed -i -e "s/NETWORK_PASSPHRASE=.*$/NETWORK_PASSPHRASE=${DEFAULT_NETWORK_PASSPHRASE}/g" ./.env
-
+echo "${RED}POSTGRES USER = root for Stellar DB${NC}"
+read -p "${RED}Enter POSTGRES PASSWORD:${NC}" POSTGRES_PASSWORD;
+echo "Stellar Postgres DB Password=${POSTGRES_PASSWORD}" >> ./.env
+echo "Stellar Postgres DB Password=${POSTGRES_PASSWORD}" >> ${DEPLOYMENATOR_DIR}/${SEEDS_FILE}
+echo "" >> ${DEPLOYMENATOR_DIR}/${SEEDS_FILE}
 # building node
 echo "Starting to build Node, this may take nearly 40 minutes"
 sleep 3
@@ -278,27 +282,33 @@ echo "SMTP_SECURITY=$smtp_security" >> ./default.env;
 echo "SMTP_USER=$smtp_user" >> ./default.env;
 echo "SMTP_PASS=$smtp_pass" >> ./default.env;
 
+   dir=$(basename "$ABS_REPO" ".git")
+   dir=${DEPLOYMENATOR_DIR}/../${dir}
+   if [[ -d "$dir" ]]; then
+         echo "${RED}POSTGRES USER = root for ABS${NC}"
+         read -p "${RED}Enter POSTGRES PASSWORD:${NC}" POSTGRES_PASSWORD;
+         echo "ABS Postgres DB Password=${POSTGRES_PASSWORD}" >> ${DEPLOYMENATOR_DIR}/${SEEDS_FILE}
+         echo "" >> ${DEPLOYMENATOR_DIR}/${SEEDS_FILE}
+       cd $dir && echo "*******************************${GREEN}Installing ABS${NC}********************************" && makeconfig $dir && make build && cd ${DEPLOYMENATOR_DIR}/..
+   else
+       dir=$(download_repo $ABS_REPO $GIT_BRANCH)
+         echo "${RED}POSTGRES USER = root for ABS${NC}"
+         read -p "${RED}Enter POSTGRES PASSWORD:${NC}" POSTGRES_PASSWORD;
+         echo "ABS Postgres DB Password=${POSTGRES_PASSWORD}" >> ${DEPLOYMENATOR_DIR}/${SEEDS_FILE}
+         echo "" >> ${DEPLOYMENATOR_DIR}/${SEEDS_FILE}
+       cd $dir && echo "********************************${GREEN}Installing ABS${NC}********************************" && makeconfig $dir && make build && cd ${DEPLOYMENATOR_DIR}/..
+   fi
+
+
 for i in "${MICRO_REPOS[@]}"
 do
    dir=$(basename "$i" ".git")
    dir=${DEPLOYMENATOR_DIR}/../${dir}
 
    if [[ -d "$dir" ]]; then
-       if [[ [$(basename $dir)]=abs ]]; then
-         echo "${RED}POSTGRES USER = root for ABS${NC}"
-         read -p "${RED}Enter POSTGRES PASSWORD:${NC}" POSTGRES_PASSWORD;
-         echo "ABS Postgres DB Password=${POSTGRES_PASSWORD}" >> ${DEPLOYMENATOR_DIR}/${SEEDS_FILE}
-         echo "" >> ${DEPLOYMENATOR_DIR}/${SEEDS_FILE}
-       fi
        cd $dir && echo "*******************************${GREEN}Installing $dir ${NC}********************************" && makeconfig $dir && make build && cd ${DEPLOYMENATOR_DIR}/..
    else
        dir=$(download_repo $i $GIT_BRANCH)
-       if [[ [$(basename $dir)]=abs ]]; then
-         echo "${RED}POSTGRES USER = root for ABS${NC}"
-         read -p "${RED}Enter POSTGRES PASSWORD:${NC}" POSTGRES_PASSWORD;
-         echo "ABS Postgres DB Password=${POSTGRES_PASSWORD}" >> ${DEPLOYMENATOR_DIR}/${SEEDS_FILE}
-         echo "" >> ${DEPLOYMENATOR_DIR}/${SEEDS_FILE}
-       fi
        cd $dir && echo "********************************${GREEN}Installing $dir ${NC}********************************" && makeconfig $dir && make build && cd ${DEPLOYMENATOR_DIR}/..
    fi
 done
