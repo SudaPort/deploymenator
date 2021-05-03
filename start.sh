@@ -103,6 +103,8 @@ echo "SMTP username: ${smtp_user}"
 
 echo "${RED}POSTGRES USER = root for Stellar DB${NC}"
 read -p "${RED}Enter POSTGRES PASSWORD:${NC}" POSTGRES_PASSWORD;
+echo "Stellar Postgres DB Password=${POSTGRES_PASSWORD}" >> ${DEPLOYMENATOR_DIR}/${SEEDS_FILE}
+echo "" >> ${DEPLOYMENATOR_DIR}/${SEEDS_FILE}
 echo "-------------------------------------------------------------------------------------------------------------"
 
 read -ra response -p "${GREEN}Press Enter to continue setup…${NC} "
@@ -282,16 +284,20 @@ do
    dir=${DEPLOYMENATOR_DIR}/../${dir}
 
    if [[ -d "$dir" ]]; then
-       if $(basename $dir)=abs; then
+       if [[ [$(basename $dir)]=abs ]]; then
          echo "${RED}POSTGRES USER = root for ABS${NC}"
          read -p "${RED}Enter POSTGRES PASSWORD:${NC}" POSTGRES_PASSWORD;
+         echo "ABS Postgres DB Password=${POSTGRES_PASSWORD}" >> ${DEPLOYMENATOR_DIR}/${SEEDS_FILE}
+         echo "" >> ${DEPLOYMENATOR_DIR}/${SEEDS_FILE}
        fi
        cd $dir && echo "*******************************Installing $dir ********************************" && makeconfig $dir && make build && cd ${DEPLOYMENATOR_DIR}/..
    else
        dir=$(download_repo $i $GIT_BRANCH)
-       if $(basename $dir)=abs; then
+       if [[ [$(basename $dir)]=abs ]]; then
          echo "${RED}POSTGRES USER = root for ABS${NC}"
          read -p "${RED}Enter POSTGRES PASSWORD:${NC}" POSTGRES_PASSWORD;
+         echo "ABS Postgres DB Password=${POSTGRES_PASSWORD}" >> ${DEPLOYMENATOR_DIR}/${SEEDS_FILE}
+         echo "" >> ${DEPLOYMENATOR_DIR}/${SEEDS_FILE}
        fi
        cd $dir && echo "********************************Installing $dir ********************************" && makeconfig $dir && make build && cd ${DEPLOYMENATOR_DIR}/..
    fi
