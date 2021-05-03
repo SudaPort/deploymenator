@@ -101,6 +101,8 @@ echo "SMTP port: ${smtp_port}"
 echo "SMTP security: ${smtp_security}"
 echo "SMTP username: ${smtp_user}"
 
+echo "${RED}POSTGRES USER = root for ABS and Stellar DB${NC}"
+read -p "${RED}Enter POSTGRES PASSWORD:${NC}" POSTGRES_PASSWORD;
 echo "-------------------------------------------------------------------------------------------------------------"
 
 read -ra response -p "${GREEN}Press Enter to continue setup…${NC} "
