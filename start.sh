@@ -174,6 +174,7 @@ cd "$dir"
 sed -i -e "s/NETWORK_PASSPHRASE=.*$/NETWORK_PASSPHRASE=${DEFAULT_NETWORK_PASSPHRASE}/g" ./.env
 echo "${RED}POSTGRES USER = root for Stellar DB${NC}"
 read -p "${RED}Enter POSTGRES PASSWORD:${NC}" POSTGRES_PASSWORD;
+echo "" >> ./.env
 echo "POSTGRES_PASSWORD=${POSTGRES_PASSWORD}" >> ./.env
 echo "Stellar Postgres DB Password=${POSTGRES_PASSWORD}" >> ${DEPLOYMENATOR_DIR}/${SEEDS_FILE}
 echo "" >> ${DEPLOYMENATOR_DIR}/${SEEDS_FILE}
@@ -284,6 +285,7 @@ echo "SMTP_PASS=$smtp_pass" >> ./default.env;
    cd $dir
          echo "${RED}POSTGRES USER = root for ABS${NC}"
          read -p "${RED}Enter POSTGRES PASSWORD:${NC}" POSTGRES_PASSWORD;
+         echo "" >> ./.env
          echo "POSTGRES_PASSWORD=${POSTGRES_PASSWORD}" >> ./.env
          echo "ABS Postgres DB Password=${POSTGRES_PASSWORD}" >> ${DEPLOYMENATOR_DIR}/${SEEDS_FILE}
          echo "" >> ${DEPLOYMENATOR_DIR}/${SEEDS_FILE}
@@ -293,6 +295,7 @@ echo "SMTP_PASS=$smtp_pass" >> ./default.env;
        cd $dir
          echo "${RED}POSTGRES USER = root for ABS${NC}"
          read -p "${RED}Enter POSTGRES PASSWORD:${NC}" POSTGRES_PASSWORD;
+         echo "" >> ./.env
          echo "POSTGRES_PASSWORD=${POSTGRES_PASSWORD}" >> ./.env
          echo "ABS Postgres DB Password=${POSTGRES_PASSWORD}" >> ${DEPLOYMENATOR_DIR}/${SEEDS_FILE}
          echo "" >> ${DEPLOYMENATOR_DIR}/${SEEDS_FILE}
