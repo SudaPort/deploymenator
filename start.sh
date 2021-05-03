@@ -110,13 +110,13 @@ echo "--------------------------------------------------------------------------
 read -ra response -p "${GREEN}Press Enter to continue setup…${NC} "
 apt-get install build-essential
 
-echo " =============================Checking for Docker============================================================="
+echo " =============================${GREEN}Checking for Docker${NC}============================================================="
 
 if [ -x "$(command -v docker)" ]; then
-    echo "***************************Docker is installed************************************************************"
+    echo "${GREEN}***************************Docker is installed************************************************************${NC}"
     service docker start
 else
-    echo "*****************************Installing docker***********************************************************"
+    echo "*****************************${GREEN}Installing docker${NC}***********************************************************"
     
     read -ra response -p "${GREEN}Press Enter to continue setup…${NC} "
     apt -y install dirmngr --install-recommends
@@ -127,7 +127,7 @@ else
     service docker start
 fi
 
-echo " =============================Installing Docker Compose======================================================="
+echo " =============================${GREEN}Installing Docker Compose${NC}======================================================="
   
   read -ra response -p "${GREEN}Press Enter to continue setup…${NC} "
   curl -L "https://github.com/docker/compose/releases/download/1.28.5/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
@@ -148,7 +148,7 @@ groupadd docker
 gpasswd -a "$current_user" docker
 service docker restart
 
-echo "===============================Building docker-riak=============================================================" 
+echo "===============================${GREEN}Building docker-riak${NC}=============================================================" 
 
 read -ra response -p "${GREEN}Press Enter to continue setup…${NC} "
 GIT_BRANCH='main'
@@ -168,7 +168,7 @@ make status
 cd "$DEPLOYMENATOR_DIR"
 
 
-echo "=================================Building Gurosh-core docker =========================================" 
+echo "=================================${GREEN}Building Gurosh-core docker${NC} =========================================" 
 
 read -ra response -p "${GREEN}Press Enter to continue setup…${NC} "
 GIT_BRANCH='main'
@@ -183,7 +183,7 @@ sleep 3
 make build
 sleep 3
 # generating seed for master and fee agent accounts
-echo "*********************************Generating seeds *********************************************************"
+echo "*********************************${GREEN}Generating seeds${NC} *********************************************************"
 GENSEED="$(docker run --rm crypto/core src/stellar-core gen-seed)"
 MASTER_SEED=${GENSEED:13:56}
 MASTER_PUBLIC_KEY=${GENSEED:82:56}
@@ -206,7 +206,7 @@ sleep 3
 make start
 sleep 3
 # creating validator
-echo "*****************************************************Creating validator ****************************************"
+echo "*****************************************************${GREEN}Creating validator${NC} ****************************************"
 GENSEED="$(docker run --rm crypto/core src/stellar-core gen-seed)"
 NODE_SEED=${GENSEED:13:56}
 NODE_PUBLIC_KEY=${GENSEED:82:56}
@@ -223,7 +223,7 @@ sleep 1
 
 cd "$DEPLOYMENATOR_DIR"
 
-echo "=========================================Building nginx-proxy ==================================================="
+echo "=========================================${GREEN}Building nginx-proxy${NC} ==================================================="
 
 read -ra response -p "${GREEN}Press Enter to continue setup…${NC} "
 GIT_BRANCH='main'
@@ -247,7 +247,7 @@ make state
 cd "$DEPLOYMENATOR_DIR"
 
 
-echo " =====================================Building microservices======================================================"
+echo " =====================================${GREEN}Building microservices${NC}======================================================"
 
 read -ra response -p "${GREEN}Press Enter to continue setup…${NC} "
 GIT_BRANCH="main"
@@ -290,7 +290,7 @@ do
          echo "ABS Postgres DB Password=${POSTGRES_PASSWORD}" >> ${DEPLOYMENATOR_DIR}/${SEEDS_FILE}
          echo "" >> ${DEPLOYMENATOR_DIR}/${SEEDS_FILE}
        fi
-       cd $dir && echo "*******************************Installing $dir ********************************" && makeconfig $dir && make build && cd ${DEPLOYMENATOR_DIR}/..
+       cd $dir && echo "*******************************${GREEN}Installing $dir ${NC}********************************" && makeconfig $dir && make build && cd ${DEPLOYMENATOR_DIR}/..
    else
        dir=$(download_repo $i $GIT_BRANCH)
        if [[ [$(basename $dir)]=abs ]]; then
@@ -299,13 +299,14 @@ do
          echo "ABS Postgres DB Password=${POSTGRES_PASSWORD}" >> ${DEPLOYMENATOR_DIR}/${SEEDS_FILE}
          echo "" >> ${DEPLOYMENATOR_DIR}/${SEEDS_FILE}
        fi
-       cd $dir && echo "********************************Installing $dir ********************************" && makeconfig $dir && make build && cd ${DEPLOYMENATOR_DIR}/..
+       cd $dir && echo "********************************${GREEN}Installing $dir ${NC}********************************" && makeconfig $dir && make build && cd ${DEPLOYMENATOR_DIR}/..
    fi
 done
 
 echo "***************************************************make indexes on api...*******************************"
 cd ${DEPLOYMENATOR_DIR}/../api && sleep 1 && make indexes
 echo "*******************************************************************************************************************"
-echo "*                 Complete                 Complete                 Complete                 Complete             *"
-echo "*                 Complete                 Complete                 Complete                 Complete             *"
+echo "*   SUDAPORT.com    SUDAPORT.com    SUDAPORT.com    SUDAPORT.com    SUDAPORT.com    SUDAPORT.com      SUDAPORT.com*"
+echo "*   SUDAPORT.com    SUDAPORT.com    SUDAPORT.com    SUDAPORT.com    SUDAPORT.com    SUDAPORT.com      SUDAPORT.com*"
 echo "*******************************************************************************************************************"
+cd
