@@ -285,8 +285,8 @@ echo "SMTP_PASS=$smtp_pass" >> ./default.env;
    cd $dir
          echo "${RED}POSTGRES USER = root for ABS${NC}"
          read -p "${RED}Enter POSTGRES PASSWORD:${NC}" POSTGRES_PASSWORD;
-         echo "" >> ./.env
-         echo "POSTGRES_PASSWORD=${POSTGRES_PASSWORD}" >> ./.env
+         echo "" >> ./abs-env
+         echo "POSTGRES_PASSWORD=${POSTGRES_PASSWORD}" >> ./abs-env
          echo "ABS Postgres DB Password=${POSTGRES_PASSWORD}" >> ${DEPLOYMENATOR_DIR}/${SEEDS_FILE}
          echo "" >> ${DEPLOYMENATOR_DIR}/${SEEDS_FILE}
          echo "*******************************${GREEN}Installing ABS${NC}********************************" && makeconfig $dir && make build && cd ${DEPLOYMENATOR_DIR}/..
@@ -295,8 +295,8 @@ echo "SMTP_PASS=$smtp_pass" >> ./default.env;
        cd $dir
          echo "${RED}POSTGRES USER = root for ABS${NC}"
          read -p "${RED}Enter POSTGRES PASSWORD:${NC}" POSTGRES_PASSWORD;
-         echo "" >> ./.env
-         echo "POSTGRES_PASSWORD=${POSTGRES_PASSWORD}" >> ./.env
+         echo "" >> ./abs-env
+         echo "POSTGRES_PASSWORD=${POSTGRES_PASSWORD}" >> ./abs-env
          echo "ABS Postgres DB Password=${POSTGRES_PASSWORD}" >> ${DEPLOYMENATOR_DIR}/${SEEDS_FILE}
          echo "" >> ${DEPLOYMENATOR_DIR}/${SEEDS_FILE}
          echo "********************************${GREEN}Installing ABS${NC}********************************" && makeconfig $dir && make build && cd ${DEPLOYMENATOR_DIR}/..
