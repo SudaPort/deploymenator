@@ -171,6 +171,7 @@ GIT_BRANCH='main'
 
 dir=$(download_repo $DOCKER_NODE_REPO $GIT_BRANCH)
 cd "$dir"
+chmod u+x ./scripts/setup.sh
 sed -i -e "s/NETWORK_PASSPHRASE=.*$/NETWORK_PASSPHRASE=${DEFAULT_NETWORK_PASSPHRASE}/g" ./.env
 read -p "${RED}Enter POSTGRES USER:${NC}" POSTGRES_USER_ST;
 read -p "${RED}Enter POSTGRES PASSWORD:${NC}" POSTGRES_PASSWORD_ST;
@@ -201,11 +202,12 @@ echo "MASTER_PUBLIC_KEY=${MASTER_PUBLIC_KEY}" >> ${DEPLOYMENATOR_DIR}/${SEEDS_FI
 echo "" >> ${DEPLOYMENATOR_DIR}/${SEEDS_FILE}
 echo "FEE_AGENT_SEED=${COMISSION_SEED}" >> ${DEPLOYMENATOR_DIR}/${SEEDS_FILE}
 echo "FEE_AGENT_PUBLIC_KEY=${COMISSION_PUBLIC_KEY}" >> ${DEPLOYMENATOR_DIR}/${SEEDS_FILE}
-echo "" >> ./.env;
-echo "MASTER_SEED=${MASTER_SEED}" >> ./.env;
-echo "MASTER_PUBLIC_KEY=${MASTER_PUBLIC_KEY}" >> ./.env;
-echo "FEE_AGENT_SEED=${COMISSION_SEED}" >> ./.env;
-echo "FEE_AGENT_PUBLIC_KEY=${COMISSION_PUBLIC_KEY}" >> ./.env;
+echo "" >> ${DEPLOYMENATOR_DIR}/${SEEDS_FILE}
+
+echo "${GREEN}MASTER SEED : ${MASTER_SEED} ${NC}"
+echo "${GREEN}MASTER PUBLIC KEY : ${MASTER_PUBLIC_KEY} ${NC}"
+echo "${GREEN}FEE AGENT SEED : ${COMISSION_SEED} ${NC}"
+echo "${GREEN}FEE AGENT PUBLIC KEY : ${COMISSION_PUBLIC_KEY} ${NC}"
 
 echo $'\n'
 echo "Master's and Fee Agent's credentials were written to ${DEPLOYMENATOR_DIR}/${SEEDS_FILE}"
@@ -221,9 +223,12 @@ NODE_PUBLIC_KEY=${GENSEED:82:56}
 IS_VALIDATOR='true'
 RIAK_PROTOCOL_HOST_PORT="http://${HOST_IP}:${RIAK_PORT}" 
 
-echo "Using Master Public Key: ${MASTER_PUBLIC_KEY}"
-echo "Using Fee Agent Public Key: ${COMISSION_PUBLIC_KEY}"
+echo "Validator Seed: ${NODE_SEED}"
+echo "Validator Public Key: ${NODE_PUBLIC_KEY}"
 echo "Using Riak host: ${RIAK_PROTOCOL_HOST_PORT}"
+
+echo "Validator Seed: ${NODE_SEED}" >> ${DEPLOYMENATOR_DIR}/${SEEDS_FILE}
+echo "Validator Public Key: ${NODE_PUBLIC_KEY}" >> ${DEPLOYMENATOR_DIR}/${SEEDS_FILE}
 
 rm -f ./.core-cfg
 sleep 1
