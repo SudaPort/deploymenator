@@ -201,13 +201,17 @@ echo "MASTER_PUBLIC_KEY=${MASTER_PUBLIC_KEY}" >> ${DEPLOYMENATOR_DIR}/${SEEDS_FI
 echo "" >> ${DEPLOYMENATOR_DIR}/${SEEDS_FILE}
 echo "FEE_AGENT_SEED=${COMISSION_SEED}" >> ${DEPLOYMENATOR_DIR}/${SEEDS_FILE}
 echo "FEE_AGENT_PUBLIC_KEY=${COMISSION_PUBLIC_KEY}" >> ${DEPLOYMENATOR_DIR}/${SEEDS_FILE}
+echo "" >> ./.env;
+echo "MASTER_SEED=${MASTER_SEED}" >> ./.env;
+echo "MASTER_PUBLIC_KEY=${MASTER_PUBLIC_KEY}" >> ./.env;
+echo "FEE_AGENT_SEED=${COMISSION_SEED}" >> ./.env;
+echo "FEE_AGENT_PUBLIC_KEY=${COMISSION_PUBLIC_KEY}" >> ./.env;
 
 echo $'\n'
 echo "Master's and Fee Agent's credentials were written to ${DEPLOYMENATOR_DIR}/${SEEDS_FILE}"
 echo $'\n'
 sleep 3
-make start
-sleep 3
+
 # creating validator
 echo "*****************************************************${GREEN}Creating validator${NC} ****************************************"
 GENSEED="$(docker run --rm crypto/core src/stellar-core gen-seed)"
@@ -220,10 +224,9 @@ RIAK_PROTOCOL_HOST_PORT="http://${HOST_IP}:${RIAK_PORT}"
 echo "Using Master Public Key: ${MASTER_PUBLIC_KEY}"
 echo "Using Fee Agent Public Key: ${COMISSION_PUBLIC_KEY}"
 echo "Using Riak host: ${RIAK_PROTOCOL_HOST_PORT}"
-sleep 3
+
 rm -f ./.core-cfg
 sleep 1
-
 cd "$DEPLOYMENATOR_DIR"
 
 echo "=========================================${GREEN}Building nginx-proxy${NC} ==================================================="
@@ -250,7 +253,7 @@ make state
 cd "$DEPLOYMENATOR_DIR"
 
 
-echo " =====================================${GREEN}Building microservices${NC}======================================================"
+echo " ======================================${GREEN}Building microservices${NC}======================================================"
 
 read -ra response -p "${GREEN}Press Enter to continue setup…${NC} "
 GIT_BRANCH="main"
@@ -280,6 +283,10 @@ echo "SMTP_PORT=$smtp_port" >> ./default.env;
 echo "SMTP_SECURITY=$smtp_security" >> ./default.env;
 echo "SMTP_USER=$smtp_user" >> ./default.env;
 echo "SMTP_PASS=$smtp_pass" >> ./default.env;
+
+make agent
+make gate
+make validator
 
 read -p "${RED}Enter POSTGRES USER:${NC}" POSTGRES_USER_ABS;
 read -p "${RED}Enter POSTGRES PASSWORD:${NC}" POSTGRES_PASSWORD_ABS;
