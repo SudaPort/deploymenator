@@ -174,7 +174,7 @@ cd "$dir"
 sed -i -e "s/NETWORK_PASSPHRASE=.*$/NETWORK_PASSPHRASE=${DEFAULT_NETWORK_PASSPHRASE}/g" ./.env
 echo "${RED}POSTGRES USER = root for Stellar DB${NC}"
 read -p "${RED}Enter POSTGRES PASSWORD:${NC}" POSTGRES_PASSWORD;
-echo "Stellar Postgres DB Password=${POSTGRES_PASSWORD}" >> ./.env
+echo "POSTGRES_PASSWORD=${POSTGRES_PASSWORD}" >> ./.env
 echo "Stellar Postgres DB Password=${POSTGRES_PASSWORD}" >> ${DEPLOYMENATOR_DIR}/${SEEDS_FILE}
 echo "" >> ${DEPLOYMENATOR_DIR}/${SEEDS_FILE}
 # building node
@@ -281,18 +281,22 @@ echo "SMTP_PASS=$smtp_pass" >> ./default.env;
    dir=$(basename "$ABS_REPO" ".git")
    dir=${DEPLOYMENATOR_DIR}/../${dir}
    if [[ -d "$dir" ]]; then
+   cd $dir
          echo "${RED}POSTGRES USER = root for ABS${NC}"
          read -p "${RED}Enter POSTGRES PASSWORD:${NC}" POSTGRES_PASSWORD;
+         echo "POSTGRES_PASSWORD=${POSTGRES_PASSWORD}" >> ./.env
          echo "ABS Postgres DB Password=${POSTGRES_PASSWORD}" >> ${DEPLOYMENATOR_DIR}/${SEEDS_FILE}
          echo "" >> ${DEPLOYMENATOR_DIR}/${SEEDS_FILE}
-       cd $dir && echo "*******************************${GREEN}Installing ABS${NC}********************************" && makeconfig $dir && make build && cd ${DEPLOYMENATOR_DIR}/..
+         echo "*******************************${GREEN}Installing ABS${NC}********************************" && makeconfig $dir && make build && cd ${DEPLOYMENATOR_DIR}/..
    else
        dir=$(download_repo $ABS_REPO $GIT_BRANCH)
+       cd $dir
          echo "${RED}POSTGRES USER = root for ABS${NC}"
          read -p "${RED}Enter POSTGRES PASSWORD:${NC}" POSTGRES_PASSWORD;
+         echo "POSTGRES_PASSWORD=${POSTGRES_PASSWORD}" >> ./.env
          echo "ABS Postgres DB Password=${POSTGRES_PASSWORD}" >> ${DEPLOYMENATOR_DIR}/${SEEDS_FILE}
          echo "" >> ${DEPLOYMENATOR_DIR}/${SEEDS_FILE}
-       cd $dir && echo "********************************${GREEN}Installing ABS${NC}********************************" && makeconfig $dir && make build && cd ${DEPLOYMENATOR_DIR}/..
+         echo "********************************${GREEN}Installing ABS${NC}********************************" && makeconfig $dir && make build && cd ${DEPLOYMENATOR_DIR}/..
    fi
 
 
