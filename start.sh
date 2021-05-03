@@ -177,9 +177,9 @@ read -p "${RED}Enter POSTGRES PASSWORD:${NC}" POSTGRES_PASSWORD_ST;
 echo "" >> ./.env;
 echo "POSTGRES_USER_ST=${POSTGRES_USER_ST}" >> ./.env;
 echo "POSTGRES_PASSWORD_ST=${POSTGRES_PASSWORD_ST}" >> ./.env;
-echo "Stellar Postgres DB Username=${POSTGRES_USER_ST}" >> ${DEPLOYMENATOR_DIR}/${SEEDS_FILE};
-echo "Stellar Postgres DB Password=${POSTGRES_PASSWORD_ST}" >> ${DEPLOYMENATOR_DIR}/${SEEDS_FILE};
-echo "" >> ${DEPLOYMENATOR_DIR}/${SEEDS_FILE};
+echo "Stellar Postgres DB Username=${POSTGRES_USER_ST}" >> ~/${DEPLOYMENATOR_DIR}/${SEEDS_FILE};
+echo "Stellar Postgres DB Password=${POSTGRES_PASSWORD_ST}" >> ~/${DEPLOYMENATOR_DIR}/${SEEDS_FILE};
+echo "" >> ~/${DEPLOYMENATOR_DIR}/${SEEDS_FILE};
 # building node
 echo "Starting to build Node, this may take nearly 40 minutes"
 sleep 3
@@ -283,8 +283,8 @@ echo "SMTP_PASS=$smtp_pass" >> ./default.env;
 
 read -p "${RED}Enter POSTGRES USER:${NC}" POSTGRES_USER_ABS;
 read -p "${RED}Enter POSTGRES PASSWORD:${NC}" POSTGRES_PASSWORD_ABS;
-echo "POSTGRES_USER_ST=${POSTGRES_USER_ABS}" >> ./default.env;
-echo "POSTGRES_PASSWORD_ST=${POSTGRES_PASSWORD_ABS}" >> ./default.env;
+echo "POSTGRES_USER_ABS=${POSTGRES_USER_ABS}" >> ./default.env;
+echo "POSTGRES_PASSWORD_ABS=${POSTGRES_PASSWORD_ABS}" >> ./default.env;
 echo "ABS Postgres DB Username=${POSTGRES_USER_ABS}" >> ${DEPLOYMENATOR_DIR}/${SEEDS_FILE};
 echo "ABS Postgres DB Password=${POSTGRES_PASSWORD_ABS}" >> ${DEPLOYMENATOR_DIR}/${SEEDS_FILE};
 echo "" >> ${DEPLOYMENATOR_DIR}/${SEEDS_FILE};
