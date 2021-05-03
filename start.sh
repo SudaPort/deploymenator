@@ -19,8 +19,8 @@ DEFAULT_SMTP_PASSWORD="passwordhere"
 DOCKER_RIAK_REPO="github.com/SudaPort/docker-riak.git"
 DOCKER_NODE_REPO="github.com/SudaPort/docker-node.git"
 NGINX_PROXY_REPO="github.com/SudaPort/nginx-proxy.git"
-ABS_REPO="github.com/SudaPort/abs.git"
 MICRO_REPOS=(
+    "github.com/SudaPort/abs.git"
     "github.com/SudaPort/api.git"
     "github.com/SudaPort/cards-bot.git"
     "github.com/SudaPort/merchant-bot.git"
@@ -101,6 +101,10 @@ echo "SMTP port: ${smtp_port}"
 echo "SMTP security: ${smtp_security}"
 echo "SMTP username: ${smtp_user}"
 
+echo "${RED}POSTGRES USER = root for Stellar DB${NC}"
+read -p "${RED}Enter POSTGRES PASSWORD:${NC}" POSTGRES_PASSWORD;
+echo "Stellar Postgres DB Password=${POSTGRES_PASSWORD}" >> ${DEPLOYMENATOR_DIR}/${SEEDS_FILE}
+echo "" >> ${DEPLOYMENATOR_DIR}/${SEEDS_FILE}
 echo "-------------------------------------------------------------------------------------------------------------"
 
 read -ra response -p "${GREEN}Press Enter to continue setup…${NC} "
@@ -152,7 +156,7 @@ GIT_BRANCH='main'
 dir=$(download_repo $DOCKER_RIAK_REPO $GIT_BRANCH)
 
 cd "$dir"
-rm -f ./.env
+# rm -f ./.env
 echo "RIAK_HOST=$HOST_IP" >> ./.env
 echo "DOMAIN=$HOST_IP" >> ./.env
 echo "HOST=$HOST_IP" >> ./.env
@@ -174,10 +178,9 @@ cd "$dir"
 sed -i -e "s/NETWORK_PASSPHRASE=.*$/NETWORK_PASSPHRASE=${DEFAULT_NETWORK_PASSPHRASE}/g" ./.env
 echo "${RED}POSTGRES USER = root for Stellar DB${NC}"
 read -p "${RED}Enter POSTGRES PASSWORD:${NC}" POSTGRES_PASSWORD;
-echo "" >> ./.env
-echo "POSTGRES_PASSWORD=${POSTGRES_PASSWORD}" >> ./.env
-echo "Stellar Postgres DB Password=${POSTGRES_PASSWORD}" >> ${DEPLOYMENATOR_DIR}/${SEEDS_FILE}
-echo "" >> ${DEPLOYMENATOR_DIR}/${SEEDS_FILE}
+echo "Stellar Postgres DB Password=${POSTGRES_PASSWORD}" >> ./.env;
+echo "Stellar Postgres DB Password=${POSTGRES_PASSWORD}" >> ${DEPLOYMENATOR_DIR}/${SEEDS_FILE};
+echo "" >> ${DEPLOYMENATOR_DIR}/${SEEDS_FILE};
 # building node
 echo "Starting to build Node, this may take nearly 40 minutes"
 sleep 3
@@ -193,7 +196,7 @@ GENSEED="$(docker run --rm crypto/core src/stellar-core gen-seed)"
 COMISSION_SEED=${GENSEED:13:56}
 COMISSION_PUBLIC_KEY=${GENSEED:82:56}
 
-rm -f ${DEPLOYMENATOR_DIR}/${SEEDS_FILE}
+# rm -f ${DEPLOYMENATOR_DIR}/${SEEDS_FILE}
 echo "MASTER_SEED=${MASTER_SEED}" >> ${DEPLOYMENATOR_DIR}/${SEEDS_FILE}
 echo "MASTER_PUBLIC_KEY=${MASTER_PUBLIC_KEY}" >> ${DEPLOYMENATOR_DIR}/${SEEDS_FILE}
 echo "" >> ${DEPLOYMENATOR_DIR}/${SEEDS_FILE}
@@ -219,7 +222,7 @@ echo "Using Master Public Key: ${MASTER_PUBLIC_KEY}"
 echo "Using Fee Agent Public Key: ${COMISSION_PUBLIC_KEY}"
 echo "Using Riak host: ${RIAK_PROTOCOL_HOST_PORT}"
 sleep 3
-rm -f ./.core-cfg
+# rm -f ./.core-cfg
 sleep 1
 
 cd "$DEPLOYMENATOR_DIR"
@@ -233,7 +236,7 @@ dir=$(download_repo $NGINX_PROXY_REPO $GIT_BRANCH)
 
 cd "$dir"
 chmod u+x+r+w ./docker/nginx/entrypoint.sh
-rm -f ./.env
+# rm -f ./.env
 echo "DOMAIN=${DOMAIN}" >> ./.env
 echo "HORIZON_NP_HOST=${HOST_IP}" >> ./.env
 echo "RIAK_NP_HOST=${HOST_IP}" >> ./.env
@@ -253,7 +256,7 @@ echo " =====================================${GREEN}Building microservices${NC}=
 read -ra response -p "${GREEN}Press Enter to continue setup…${NC} "
 GIT_BRANCH="main"
 
-rm -f ./clear.env
+# rm -f ./clear.env
 echo "MASTER_KEY=${MASTER_PUBLIC_KEY}" >> ./clear.env
 echo "HORIZON_HOST=http://horizon.${DOMAIN}" >> ./clear.env
 echo "EMISSION_HOST=http://emission.${DOMAIN}" >> ./clear.env
@@ -278,30 +281,12 @@ echo "SMTP_PORT=$smtp_port" >> ./default.env;
 echo "SMTP_SECURITY=$smtp_security" >> ./default.env;
 echo "SMTP_USER=$smtp_user" >> ./default.env;
 echo "SMTP_PASS=$smtp_pass" >> ./default.env;
-
-   dir=$(basename "$ABS_REPO" ".git")
-   dir=${DEPLOYMENATOR_DIR}/../${dir}
-   if [[ -d "$dir" ]]; then
-   cd $dir
-         echo "${RED}POSTGRES USER = root for ABS${NC}"
-         read -p "${RED}Enter POSTGRES PASSWORD:${NC}" POSTGRES_PASSWORD;
-         echo "" >> ./abs-env
-         echo "POSTGRES_PASSWORD=${POSTGRES_PASSWORD}" >> ./abs-env
-         echo "ABS Postgres DB Password=${POSTGRES_PASSWORD}" >> ${DEPLOYMENATOR_DIR}/${SEEDS_FILE}
-         echo "" >> ${DEPLOYMENATOR_DIR}/${SEEDS_FILE}
-         echo "*******************************${GREEN}Installing ABS${NC}********************************" && makeconfig $dir && make build && cd ${DEPLOYMENATOR_DIR}/..
-   else
-       dir=$(download_repo $ABS_REPO $GIT_BRANCH)
-       cd $dir
-         echo "${RED}POSTGRES USER = root for ABS${NC}"
-         read -p "${RED}Enter POSTGRES PASSWORD:${NC}" POSTGRES_PASSWORD;
-         echo "" >> ./abs-env
-         echo "POSTGRES_PASSWORD=${POSTGRES_PASSWORD}" >> ./abs-env
-         echo "ABS Postgres DB Password=${POSTGRES_PASSWORD}" >> ${DEPLOYMENATOR_DIR}/${SEEDS_FILE}
-         echo "" >> ${DEPLOYMENATOR_DIR}/${SEEDS_FILE}
-         echo "********************************${GREEN}Installing ABS${NC}********************************" && makeconfig $dir && make build && cd ${DEPLOYMENATOR_DIR}/..
-   fi
-
+echo "${RED}POSTGRES USER = root for ABS${NC}";
+read -p "${RED}Enter POSTGRES PASSWORD:${NC}" POSTGRES_PASSWORD;
+echo "" >> ./default.env;
+echo "POSTGRES_PASSWORD=${POSTGRES_PASSWORD}" >> ./default.env;
+echo "ABS Postgres DB Password=${POSTGRES_PASSWORD}" >> ${DEPLOYMENATOR_DIR}/${SEEDS_FILE};
+echo "" >> ${DEPLOYMENATOR_DIR}/${SEEDS_FILE};
 
 for i in "${MICRO_REPOS[@]}"
 do
