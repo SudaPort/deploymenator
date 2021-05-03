@@ -283,14 +283,14 @@ do
 
    if [[ -d "$dir" ]]; then
        if $dir=${DEPLOYMENATOR_DIR}/../abs; then
-         echo "${RED}POSTGRES USER = root for Stellar DB${NC}"
+         echo "${RED}POSTGRES USER = root for ABS${NC}"
          read -p "${RED}Enter POSTGRES PASSWORD:${NC}" POSTGRES_PASSWORD;
        fi
        cd $dir && echo "*******************************Installing $dir ********************************" && makeconfig $dir && make build && cd ${DEPLOYMENATOR_DIR}/..
    else
        dir=$(download_repo $i $GIT_BRANCH)
        if $dir=${DEPLOYMENATOR_DIR}/../abs; then
-         echo "${RED}POSTGRES USER = root for Stellar DB${NC}"
+         echo "${RED}POSTGRES USER = root for ABS${NC}"
          read -p "${RED}Enter POSTGRES PASSWORD:${NC}" POSTGRES_PASSWORD;
        fi
        cd $dir && echo "********************************Installing $dir ********************************" && makeconfig $dir && make build && cd ${DEPLOYMENATOR_DIR}/..
