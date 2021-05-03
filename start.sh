@@ -101,7 +101,7 @@ echo "SMTP port: ${smtp_port}"
 echo "SMTP security: ${smtp_security}"
 echo "SMTP username: ${smtp_user}"
 
-echo "${RED}POSTGRES USER = root for ABS and Stellar DB${NC}"
+echo "${RED}POSTGRES USER = root for Stellar DB${NC}"
 read -p "${RED}Enter POSTGRES PASSWORD:${NC}" POSTGRES_PASSWORD;
 echo "-------------------------------------------------------------------------------------------------------------"
 
@@ -282,9 +282,17 @@ do
    dir=${DEPLOYMENATOR_DIR}/../${dir}
 
    if [[ -d "$dir" ]]; then
+       if $dir=${DEPLOYMENATOR_DIR}/../abs; then
+         echo "${RED}POSTGRES USER = root for Stellar DB${NC}"
+         read -p "${RED}Enter POSTGRES PASSWORD:${NC}" POSTGRES_PASSWORD;
+       fi
        cd $dir && echo "*******************************Installing $dir ********************************" && makeconfig $dir && make build && cd ${DEPLOYMENATOR_DIR}/..
    else
        dir=$(download_repo $i $GIT_BRANCH)
+       if $dir=${DEPLOYMENATOR_DIR}/../abs; then
+         echo "${RED}POSTGRES USER = root for Stellar DB${NC}"
+         read -p "${RED}Enter POSTGRES PASSWORD:${NC}" POSTGRES_PASSWORD;
+       fi
        cd $dir && echo "********************************Installing $dir ********************************" && makeconfig $dir && make build && cd ${DEPLOYMENATOR_DIR}/..
    fi
 done
