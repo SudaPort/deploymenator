@@ -152,7 +152,7 @@ GIT_BRANCH='main'
 dir=$(download_repo $DOCKER_RIAK_REPO $GIT_BRANCH)
 
 cd "$dir"
-rm -f ./.env
+# rm -f ./.env
 echo "RIAK_HOST=$HOST_IP" >> ./.env
 echo "DOMAIN=$HOST_IP" >> ./.env
 echo "HOST=$HOST_IP" >> ./.env
@@ -188,7 +188,7 @@ GENSEED="$(docker run --rm crypto/core src/stellar-core gen-seed)"
 COMISSION_SEED=${GENSEED:13:56}
 COMISSION_PUBLIC_KEY=${GENSEED:82:56}
 
-rm -f ${DEPLOYMENATOR_DIR}/${SEEDS_FILE}
+# rm -f ${DEPLOYMENATOR_DIR}/${SEEDS_FILE}
 echo "MASTER_SEED=${MASTER_SEED}" >> ${DEPLOYMENATOR_DIR}/${SEEDS_FILE}
 echo "MASTER_PUBLIC_KEY=${MASTER_PUBLIC_KEY}" >> ${DEPLOYMENATOR_DIR}/${SEEDS_FILE}
 echo "" >> ${DEPLOYMENATOR_DIR}/${SEEDS_FILE}
@@ -228,7 +228,7 @@ dir=$(download_repo $NGINX_PROXY_REPO $GIT_BRANCH)
 
 cd "$dir"
 chmod u+x+r+w ./docker/nginx/entrypoint.sh
-rm -f ./.env
+# rm -f ./.env
 echo "DOMAIN=${DOMAIN}" >> ./.env
 echo "HORIZON_NP_HOST=${HOST_IP}" >> ./.env
 echo "RIAK_NP_HOST=${HOST_IP}" >> ./.env
@@ -248,7 +248,7 @@ echo " =====================================Building microservices==============
 read -ra response -p "${GREEN}Press Enter to continue setup…${NC} "
 GIT_BRANCH="main"
 
-rm -f ./clear.env
+# rm -f ./clear.env
 echo "MASTER_KEY=${MASTER_PUBLIC_KEY}" >> ./clear.env
 echo "HORIZON_HOST=http://horizon.${DOMAIN}" >> ./clear.env
 echo "EMISSION_HOST=http://emission.${DOMAIN}" >> ./clear.env
