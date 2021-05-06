@@ -1,4 +1,6 @@
 #!/bin/bash
+
+
 RED=`tput setaf 1`
 GREEN=`tput setaf 2`
 NC=`tput sgr0`
@@ -232,6 +234,8 @@ echo "Validator Public Key: ${NODE_PUBLIC_KEY}" >> ${DEPLOYMENATOR_DIR}/${SEEDS_
 
 rm -f ./.core-cfg
 sleep 1
+echo "${RED}COPY SEEDS AND KEYS TO BE USED LATER${NC}"
+sleep 3
 cd "$DEPLOYMENATOR_DIR"
 
 echo "=========================================${GREEN}Building nginx-proxy${NC} ==================================================="
@@ -312,8 +316,21 @@ done
 
 echo "***************************************************make indexes on api...*******************************"
 cd ${DEPLOYMENATOR_DIR}/../api && sleep 1 && make indexes
+
+echo "${RED}COPY THE SEEDS ABOVE TO BE USED IN NEXT STAGE${NC}"
+
 echo "${GREEN}*******************************************************************************************************************"
 echo "${GREEN}*   SUDAPORT.com    SUDAPORT.com    SUDAPORT.com    SUDAPORT.com    SUDAPORT.com    SUDAPORT.com      SUDAPORT.com*"
 echo "${GREEN}*   SUDAPORT.com    SUDAPORT.com    SUDAPORT.com    SUDAPORT.com    SUDAPORT.com    SUDAPORT.com      SUDAPORT.com*"
 echo "${GREEN}*******************************************************************************************************************${NC}"
-cd
+
+sleep 3
+
+cd ${DEPLOYMENATOR_DIR}
+cd ..
+cd docker-node
+
+make master
+make agent
+make validator
+make start
