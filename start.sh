@@ -192,11 +192,11 @@ sleep 3
 echo "*********************************${GREEN}Generating seeds${NC} *********************************************************"
 GENSEED="$(docker run --rm crypto/core src/stellar-core gen-seed)"
 MASTER_SEED=${GENSEED:13:56}
-MASTER_PUBLIC_KEY=${GENSEED:82:56}
+MASTER_PUBLIC_KEY=${GENSEED:79:56}
 
 GENSEED="$(docker run --rm crypto/core src/stellar-core gen-seed)"
 COMISSION_SEED=${GENSEED:13:56}
-COMISSION_PUBLIC_KEY=${GENSEED:82:56}
+COMISSION_PUBLIC_KEY=${GENSEED:79:56}
 
 # rm -f ${DEPLOYMENATOR_DIR}/${SEEDS_FILE}
 echo "MASTER_SEED=${MASTER_SEED}" >> ${DEPLOYMENATOR_DIR}/${SEEDS_FILE}
@@ -220,7 +220,7 @@ sleep 3
 echo "*****************************************************${GREEN}Creating validator${NC} ****************************************"
 GENSEED="$(docker run --rm crypto/core src/stellar-core gen-seed)"
 NODE_SEED=${GENSEED:13:56}
-NODE_PUBLIC_KEY=${GENSEED:82:56}
+NODE_PUBLIC_KEY=${GENSEED:79:56}
 
 IS_VALIDATOR='true'
 RIAK_PROTOCOL_HOST_PORT="http://${HOST_IP}:${RIAK_PORT}" 
