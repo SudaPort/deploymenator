@@ -171,7 +171,7 @@ GIT_BRANCH='main'
 
 dir=$(download_repo $DOCKER_NODE_REPO $GIT_BRANCH)
 cd "$dir"
-chmod u+x ./scripts/setup.sh
+chmod u+x ./scripts/setup.sh ./scripts/setup1.sh ./scripts/setup2.sh
 sed -i -e "s/NETWORK_PASSPHRASE=.*$/NETWORK_PASSPHRASE=${DEFAULT_NETWORK_PASSPHRASE}/g" ./.env
 read -p "${RED}Enter POSTGRES USER:${NC}" POSTGRES_USER_ST;
 read -p "${RED}Enter POSTGRES PASSWORD:${NC}" POSTGRES_PASSWORD_ST;
