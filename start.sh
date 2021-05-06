@@ -223,9 +223,9 @@ NODE_PUBLIC_KEY=${GENSEED:82:56}
 IS_VALIDATOR='true'
 RIAK_PROTOCOL_HOST_PORT="http://${HOST_IP}:${RIAK_PORT}" 
 
-echo "Validator Seed: ${NODE_SEED}"
-echo "Validator Public Key: ${NODE_PUBLIC_KEY}"
-echo "Using Riak host: ${RIAK_PROTOCOL_HOST_PORT}"
+echo "${GREEN}Validator Seed: ${NODE_SEED} ${NC}"
+echo "${GREEN}Validator Public Key: ${NODE_PUBLIC_KEY} ${NC}"
+echo "${GREEN}Using Riak host: ${RIAK_PROTOCOL_HOST_PORT} ${NC}"
 
 echo "Validator Seed: ${NODE_SEED}" >> ${DEPLOYMENATOR_DIR}/${SEEDS_FILE}
 echo "Validator Public Key: ${NODE_PUBLIC_KEY}" >> ${DEPLOYMENATOR_DIR}/${SEEDS_FILE}
