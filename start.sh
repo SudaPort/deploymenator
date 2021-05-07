@@ -62,10 +62,9 @@ do
         echo "Error: address [$HOST_IP] is not valid!"
         continue
     else
-        read -ra response -p "${GREEN}Confirm the IP address: ${HOST_IP}? [Y/n]${NC} "
-        if [[ -z $response || $response = [yY] ]]; then
+        
             break 
-        fi 
+
     fi
 done
 
@@ -74,10 +73,9 @@ echo "--------------------------------------------------------------------------
 while true
 do
     read -ra DOMAIN -p "${GREEN}Enter the domain name for all services (without port and protocol):${NC} "
-    read -ra response -p "${GREEN}Confirm the domain name: ${DOMAIN}? [Y/n]${NC} "
-    if [[ -z $response || $response = [yY] ]]; then
+    
         break 
-    fi
+    
 done
 
 echo "-------------------------------------------------------------------------------------------------------------"
@@ -105,7 +103,6 @@ echo "SMTP username: ${smtp_user}"
 
 echo "-------------------------------------------------------------------------------------------------------------"
 
-read -ra response -p "${GREEN}Press Enter to continue setup…${NC} "
 apt-get install build-essential
 
 echo " =============================${GREEN}Checking for Docker${NC}============================================================="
@@ -116,7 +113,7 @@ if [ -x "$(command -v docker)" ]; then
 else
     echo "*****************************${GREEN}Installing docker${NC}***********************************************************"
     
-    read -ra response -p "${GREEN}Press Enter to continue setup…${NC} "
+    
     apt -y install dirmngr --install-recommends
     apt -y install git curl make apt-transport-https ca-certificates gnupg lsb-release
     curl -fsSL https://get.docker.com -o get-docker.sh
@@ -127,7 +124,6 @@ fi
 
 echo " =============================${GREEN}Installing Docker Compose${NC}======================================================="
   
-  read -ra response -p "${GREEN}Press Enter to continue setup…${NC} "
   curl -L "https://github.com/docker/compose/releases/download/1.28.5/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
   chmod +x /usr/local/bin/docker-compose
   current_user=''
@@ -148,7 +144,6 @@ service docker restart
 
 echo "===============================${GREEN}Building docker-riak${NC}=============================================================" 
 
-read -ra response -p "${GREEN}Press Enter to continue setup…${NC} "
 GIT_BRANCH='main'
 
 dir=$(download_repo $DOCKER_RIAK_REPO $GIT_BRANCH)
@@ -168,7 +163,6 @@ cd "$DEPLOYMENATOR_DIR"
 
 echo "=================================${GREEN}Building Gurosh-core docker${NC} =========================================" 
 
-read -ra response -p "${GREEN}Press Enter to continue setup…${NC} "
 GIT_BRANCH='main'
 
 dir=$(download_repo $DOCKER_NODE_REPO $GIT_BRANCH)
@@ -229,8 +223,9 @@ echo "${GREEN}Validator Seed: ${NODE_SEED} ${NC}"
 echo "${GREEN}Validator Public Key: ${NODE_PUBLIC_KEY} ${NC}"
 echo "${GREEN}Using Riak host: ${RIAK_PROTOCOL_HOST_PORT} ${NC}"
 
-echo "Validator Seed: ${NODE_SEED}" >> ${DEPLOYMENATOR_DIR}/${SEEDS_FILE}
-echo "Validator Public Key: ${NODE_PUBLIC_KEY}" >> ${DEPLOYMENATOR_DIR}/${SEEDS_FILE}
+echo "VALIDATOR_SEED=${NODE_SEED}" >> ${DEPLOYMENATOR_DIR}/${SEEDS_FILE}
+echo "VALIDATOR_PUBLIC_KEY=${NODE_PUBLIC_KEY}" >> ${DEPLOYMENATOR_DIR}/${SEEDS_FILE}
+echo "RIAK_PROTOCOL_HOST_PORT=${RIAK_PROTOCOL_HOST_PORT}" >> ${DEPLOYMENATOR_DIR}/${SEEDS_FILE}
 
 rm -f ./.core-cfg
 sleep 1
@@ -240,7 +235,6 @@ cd "$DEPLOYMENATOR_DIR"
 
 echo "=========================================${GREEN}Building nginx-proxy${NC} ==================================================="
 
-read -ra response -p "${GREEN}Press Enter to continue setup…${NC} "
 GIT_BRANCH='main'
 
 dir=$(download_repo $NGINX_PROXY_REPO $GIT_BRANCH)
@@ -264,7 +258,6 @@ cd "$DEPLOYMENATOR_DIR"
 
 echo " ======================================${GREEN}Building microservices${NC}======================================================"
 
-read -ra response -p "${GREEN}Press Enter to continue setup…${NC} "
 GIT_BRANCH="main"
 
 rm -f ./clear.env
