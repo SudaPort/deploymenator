@@ -227,7 +227,7 @@ echo "VALIDATOR_SEED=${NODE_SEED}" >> ${DEPLOYMENATOR_DIR}/${SEEDS_FILE}
 echo "VALIDATOR_PUBLIC_KEY=${NODE_PUBLIC_KEY}" >> ${DEPLOYMENATOR_DIR}/${SEEDS_FILE}
 echo "RIAK_PROTOCOL_HOST_PORT=${RIAK_PROTOCOL_HOST_PORT}" >> ${DEPLOYMENATOR_DIR}/${SEEDS_FILE}
 echo "HOME_DOMAIN=${DOMAIN}" >> ${DEPLOYMENATOR_DIR}/${SEEDS_FILE}
-echo "HOST_IP=${$HOST_IP}" >> ${DEPLOYMENATOR_DIR}/${SEEDS_FILE}
+echo "HOST_IP=${HOST_IP}" >> ${DEPLOYMENATOR_DIR}/${SEEDS_FILE}
 
 rm -f ./.core-cfg
 sleep 1
@@ -310,16 +310,14 @@ do
 done
 
 echo "***************************************************make indexes on api...*******************************"
-cd ${DEPLOYMENATOR_DIR}/../api && sleep 1 && make indexes
 
-echo "${RED}COPY THE SEEDS ABOVE TO BE USED IN NEXT STAGE${NC}"
 
 echo "${GREEN}*******************************************************************************************************************"
 echo "${GREEN}*   SUDAPORT.com    SUDAPORT.com    SUDAPORT.com    SUDAPORT.com    SUDAPORT.com    SUDAPORT.com      SUDAPORT.com*"
 echo "${GREEN}*   SUDAPORT.com    SUDAPORT.com    SUDAPORT.com    SUDAPORT.com    SUDAPORT.com    SUDAPORT.com      SUDAPORT.com*"
 echo "${GREEN}*******************************************************************************************************************${NC}"
 
-sleep 3
+cd ${DEPLOYMENATOR_DIR}/../api && sleep 1 && make indexes
 
 cd ${DEPLOYMENATOR_DIR}
 cd ..
