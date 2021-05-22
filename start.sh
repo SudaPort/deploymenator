@@ -323,7 +323,7 @@ cd ${DEPLOYMENATOR_DIR}
 cd ..
 cd docker-node
 
-make master
-make agent
+make core
+make fee
 make validator
 make start
