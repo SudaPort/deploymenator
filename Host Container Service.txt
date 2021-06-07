@@ -17,3 +17,9 @@ Host                              Container                        Service
 --                                --                               gurosh-reverse-nginx
 8088/8098                         8088/8098/80/443                 crypto-reverse-nginx (riak)
 4369/6000-6005/8087/8093/8099     4369/6000-6005/8087/8093/8099    crypto-riak-node
+--                                --                               dmoney-horizon
+11645                             11645                            dmoney-validator
+11625                             11625                            dmoney-core
+11635                             11635                            dmoney-fee
+5433                              5432                             dmoney-postgres
+--                                6379                             dmoney-redis
