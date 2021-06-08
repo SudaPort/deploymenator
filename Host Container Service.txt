@@ -1,25 +1,25 @@
-Host                              Container                        Service 
-8010                              80/443                           gurosh-frontend-nginx
---                                --                               gurosh-frontend-npm
-8089                              80                               exchange-nginx
---                                --                               exchange-php-fpm
---                                --                               exchange_bower-builder_1
-27018                             27017                            exchange-mongo
---                                --                               gurosh-merchant-bot-node
---                                --                               gurosh-cards-bot-node
-8180                              80                               crypto-api-nginx
---                                9000                             crypto-api-php
---                                11211                            crypto-api-memcached
-8092                              80                               gurosh-abs-nginx
---                                9000                             gurosh-abs-fpm
---                                --                               gurosh-abs-npm
---                                5432                             gurosh-abs-postgre
---                                --                               gurosh-reverse-nginx
-8088/8098                         8088/8098/80/443                 crypto-reverse-nginx (riak)
-4369/6000-6005/8087/8093/8099     4369/6000-6005/8087/8093/8099    crypto-riak-node
---                                --                               dmoney-horizon
-11645                             11645                            dmoney-validator
-11625                             11625                            dmoney-core
-11635                             11635                            dmoney-fee
-5433                              5432                             dmoney-postgres
---                                6379                             dmoney-redis
+Container IP  Host Port                      Container Port                 Service 
+172.17.0.2    8010                           80/443                         gurosh-frontend-nginx
+172.17.0.3    --                             --                             gurosh-frontend-npm
+172.17.0.4    8089                           80                             exchange-nginx
+172.17.0.5    --                             9000                           exchange-php-fpm
+172.17.0.6    --                             --                             exchange_bower-builder_1
+172.17.0.7    27018                          27017                          exchange-mongo
+172.17.0.8    --                             --                             gurosh-merchant-bot-node
+172.17.0.9    --                             --                             gurosh-cards-bot-node
+172.17.0.10   8180                           80                             crypto-api-nginx
+172.17.0.11   --                             9000                           crypto-api-php
+172.17.0.12   --                             11211                          crypto-api-memcached
+172.17.0.13   8092                           80                             gurosh-abs-nginx
+172.17.0.14   --                             9000                           gurosh-abs-fpm
+172.17.0.15   --                             --                             gurosh-abs-npm
+172.17.0.16   --                             5432                           gurosh-abs-postgre
+172.17.0.17   80                             80                             gurosh-reverse-nginx (main proxy)
+172.17.0.18   8088/8098                      8088/8098/80/443               crypto-reverse-nginx (riak)
+172.17.0.19   4369/6000-6005/8087/8093/8099  4369/6000-6005/8087/8093/8099  crypto-riak-node
+172.17.0.20   --                             --                             dmoney-horizon
+172.17.0.21   11645                          11645                          dmoney-validator
+172.17.0.22   11625                          11625                          dmoney-core
+172.17.0.23   11635                          11635                          dmoney-fee
+172.17.0.24   5433                           5432                           dmoney-postgres
+172.17.0.25   --                             6379                           dmoney-redis
