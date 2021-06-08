@@ -142,6 +142,7 @@ groupadd docker
 gpasswd -a "$current_user" docker
 service docker restart
 echo "===============================${GREEN}Creating guroshnet Internal Network${NC}==============================================" 
+docker network remove guroshnet
 docker network create --driver=bridge --subnet=188.0.0.0/27 --gateway=188.0.0.1 --attachable guroshnet
 echo "===============================${GREEN}Building docker-riak${NC}=============================================================" 
 
