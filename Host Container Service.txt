@@ -23,3 +23,4 @@ Container IP  Host Port                      Container Port                 Serv
 172.17.0.23   11635                          11635                          dmoney-fee
 172.17.0.24   5433                           5432                           dmoney-postgres
 172.17.0.25   --                             6379                           dmoney-redis
+172.17.0.26   --                             --                             func-test
